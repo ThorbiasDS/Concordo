@@ -12,6 +12,8 @@ private:
 public:
     CanalVoz();
     ~CanalVoz();
+    Mensagem getUltimaMensagem();
+    void setUltimaMensagem(Mensagem ultimaMensagem);
 };
 
 #endif

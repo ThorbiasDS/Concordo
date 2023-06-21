@@ -10,6 +10,8 @@ private:
 public:
     Canal();
     ~Canal();
+    std::string getNome();
+    void setNome(std::string nome);
 };
 
 #endif

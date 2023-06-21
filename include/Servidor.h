@@ -17,6 +17,18 @@ private:
 public:
     Servidor();
     ~Servidor();
+    int getUsuarioDonoId();
+    void setUsuarioDonoId(int usuarioDonoId);
+    std::string getNome();
+    void setNome(std::string nome);
+    std::string getDescricao();
+    void setDescricao(std::string descricao);
+    std::string getCodigoConvite();
+    void setCodigoConvite(std::string codigoConvite);
+    std::vector <Canal *> getCanais();
+    void setCanais(std::vector <Canal*> canais);
+    std::vector <int> getParticipantesIDs();
+    void setParticipantesIDs(std::vector <int> participantesIDs);
 };
 
 #endif

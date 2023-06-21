@@ -1,0 +1,3 @@
+create-user thor@marvel.br Thor777 Tobias Daniel Siqueira
+login thor@marvel.br Thor776
+login thor@marvel.br Thor777
