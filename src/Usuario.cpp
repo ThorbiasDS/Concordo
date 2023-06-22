@@ -14,6 +14,11 @@ Usuario::Usuario(std::string nome, std::string email, std::string senha)
     this->id = quantUsuarios;
 }
 
+Usuario::~Usuario()
+{
+    
+}
+
 int Usuario::getId()
 {
     return this->id;

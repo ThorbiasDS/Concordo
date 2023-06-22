@@ -16,6 +16,7 @@ private:
     std::vector <int> participantesIDs;
 public:
     Servidor();
+    Servidor(std::string nome);
     ~Servidor();
     int getUsuarioDonoId();
     void setUsuarioDonoId(int usuarioDonoId);

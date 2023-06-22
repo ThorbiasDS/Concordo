@@ -34,7 +34,7 @@ public:
     void setEstado(int estado);
     std::string getComando();
     void setComando(std::string comando);
-    std::vector <std::string> split(const std::string &linha, char sep);
+    std::vector<std::string> split(const std::string &linha, char sep);
     void escolher();
 };
 

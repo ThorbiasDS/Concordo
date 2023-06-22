@@ -5,6 +5,11 @@ Servidor::Servidor()
 
 }
 
+Servidor::Servidor(std::string nome)
+{
+    this->nome = nome;
+}
+
 Servidor::~Servidor()
 {
 
@@ -12,7 +17,7 @@ Servidor::~Servidor()
 
 int Servidor::getUsuarioDonoId()
 {
-    this->usuarioDonoId;
+    return this->usuarioDonoId;
 }
 
 void Servidor::setUsuarioDonoId(int usuarioDonoId)
