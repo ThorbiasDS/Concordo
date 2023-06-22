@@ -17,6 +17,8 @@ private:
     Canal canalVisualizando;
     int estado;
     std::string comando;
+    int geradorID;
+    int geradorQuantidade;
 public:
     Sistema();
     ~Sistema();
@@ -34,6 +36,10 @@ public:
     void setEstado(int estado);
     std::string getComando();
     void setComando(std::string comando);
+    int getGeradorID();
+    void setGeradorID(int geradorID);
+    int getGeradorQuantidade();
+    void setGeradorQuantidade(int geradorQuantidade);
     std::vector<std::string> split(const std::string &linha, char sep);
     void escolher();
 };

@@ -6,9 +6,14 @@
 Sistema::Sistema()
 {
     this->comando = "";
+    this->estado = 0;
+    this->geradorID = 0;
+    this->geradorQuantidade = 0;
     this->usuarioLogado.setNome("");
     this->usuarioLogado.setEmail("");
     this->usuarioLogado.setSenha("");
+    this->usuarioLogado.setId(0);
+    this->usuarioLogado.setQuantUsuarios(0);
 }
 
 Sistema::~Sistema()
@@ -85,6 +90,26 @@ void Sistema::setComando(std::string comando)
     this->comando = comando;
 }
 
+int Sistema::getGeradorID()
+{
+    return this->geradorID;
+}
+
+void Sistema::setGeradorID(int geradorID)
+{
+    this->geradorID = geradorID;
+}
+
+int Sistema::getGeradorQuantidade()
+{
+    return this->geradorQuantidade;
+}
+
+void Sistema::setGeradorQuantidade(int geradorQuantidade)
+{
+    this->geradorQuantidade = geradorQuantidade;
+}
+
 std::vector<std::string> Sistema::split(const std::string &linha, char sep)
 {
     std::vector<std::string> tokens;
@@ -112,69 +137,88 @@ void Sistema::escolher()
 
         if (linha[0] == "quit")
         {
-            std::cout << "Saindo do Concordo" << std::endl;
+            std::cout << "\"Saindo do Concordo\"" << std::endl;
             ativo = false;
         }
         else if (linha[0] == "create-user")
         {
-            std::string email = linha[1];
-            std::string senha = linha[2];
-            std::string nome = "";
-            bool existe = false;
-
-            for (auto it = (linha.begin() + 3); it < linha.end(); it++)
+            if (this->estado != 0)
             {
-                nome = nome + *it + " ";
+                std::cout << "\"Não é possível criar um usuário nesse estado\"" << std::endl;
             }
-
-            for (auto it = usuarios.begin(); it < usuarios.end(); it++)
+            else
             {
-                if (it->getEmail() == email)
+                std::string email = linha[1];
+                std::string senha = linha[2];
+                std::string nome = "";
+                bool existe = false;
+
+                for (auto it = (linha.begin() + 3); it < linha.end(); it++)
                 {
-                    std::cout << "Usuário já existe" << std::endl;
-                    existe = true;
+                    nome = nome + *it + " ";
                 }
-            }
 
-            if (existe == false)
-            {
-                Usuario usuario(nome, email, senha);
-                usuarios.push_back(usuario);
-                std::cout << "Usuario criado" << std::endl;
+                for (auto it = usuarios.begin(); it < usuarios.end(); it++)
+                {
+                    if (it->getEmail() == email)
+                    {
+                        std::cout << "Usuário já existe" << std::endl;
+                        existe = true;
+                    }
+                }
+
+                if (existe == false)
+                {
+                    Usuario usuario(nome, email, senha);
+                    usuarios.push_back(usuario);
+                    std::cout << "\"Usuario criado\"" << std::endl;
+
+                    this->geradorID++;
+                    this->geradorQuantidade++;
+
+                    usuario.setQuantUsuarios(this->geradorQuantidade);
+                    usuario.setId(this->geradorID);
+                }
             }
         }
         else if (linha[0] == "login")
         {
-            std::string email, senha;
-            email = linha[1];
-            senha = linha[2];
-            bool existe = false;
-
-            for (auto it = usuarios.begin(); it < usuarios.end(); it++)
+            if (this->estado != 0)
             {
-                if (it->getEmail() == email && it->getSenha() == senha)
-                {
-                    this->usuarioLogado = *it;
-                    std::cout << "Logado como " << it->getEmail() << std::endl;
-                    existe = true;
-                    this->estado = 1;
-                }
+                std::cout << "\"Não é possível fazer login nesse estado\"" << std::endl;
             }
-
-            if (existe == false)
+            else
             {
-                std::cout << "Senha ou usuários inválidos!" << std::endl;
+                std::string email = linha[1];
+                std::string senha = linha[2];
+                bool existe = false;
+
+                for (auto it = usuarios.begin(); it < usuarios.end(); it++)
+                {
+                    if (it->getEmail() == email && it->getSenha() == senha)
+                    {
+                        this->usuarioLogado = *it;
+                        std::cout << "Logado como " << it->getEmail() << std::endl;
+                        existe = true;
+                        this->estado = 1;
+                    }
+                }
+
+                if (existe == false)
+                {
+                    std::cout << "Senha ou usuários inválidos!" << std::endl;
+                }
             }
         }
         else if (linha[0] == "disconnect")
         {
             if (this->usuarioLogado.getNome() == "" && this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getSenha() == "")
             {
-                std::cout << "Não está conectado" << std::endl;
+                std::cout << "\"Não está conectado\"" << std::endl;
             }
             else
             {
-                std::cout << "Desconectando usuário " << this->usuarioLogado.getEmail() << std::endl;
+                std::cout << "\"Desconectando usuário\"" << this->usuarioLogado.getEmail() << std::endl;
                 this->usuarioLogado.setNome("");
                 this->usuarioLogado.setEmail("");
                 this->usuarioLogado.setSenha("");
@@ -183,27 +227,73 @@ void Sistema::escolher()
         }
         else if (linha[0] == "create-server")
         {
-            std::string nome = linha[1];
-            bool existe = false;
-
-            for (auto it = servidores.begin(); it < servidores.end(); it++)
+            if (this->estado != 1)
             {
-                if (it->getNome() == nome)
-                {
-                    std::cout << "Servidor com esse nome já existe" << std::endl;
-                    existe = true;
-                }
+                std::cout << "\"Não é possível criar um servidor nesse estado\"" << std::endl;
             }
-
-            if (existe == false)
+            else
             {
-                Servidor servidor(nome);
-                servidores.push_back(servidor);
-                std::cout << "Servidor criado" << std::endl;
+                if (this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getNome() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Sem usuário logado\"" << std::endl;
+                }
+                else
+                {
+                    std::string nome = linha[1];
+                    bool existe = false;
+
+                    for (auto it = servidores.begin(); it < servidores.end(); it++)
+                    {
+                        if (it->getNome() == nome)
+                        {
+                            std::cout << "\"Servidor com esse nome já existe\"" << std::endl;
+                            existe = true;
+                        }
+                    }
+
+                    if (existe == false)
+                    {
+                        Servidor servidor(nome);
+                        servidores.push_back(servidor);
+                        servidor.setUsuarioDonoId(this->usuarioLogado.getId());
+                        std::cout << "\"Servidor criado\"" << std::endl;
+                    }
+                }
             }
         }
         else if (linha[0] == "set-server-desc")
         {
+            if (this->estado != 1)
+            {
+                std::cout << "\"Não é possível mudar a descrição de um servidor nesse estado\"" << std::endl;
+            }
+            else
+            {
+                if (this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getNome() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Sem usuário logado\"" << std::endl;
+                }
+                else
+                {
+                    std::string nome = linha[1];
+                    std::string descricao = "";
+                    bool existe = false;
+
+                    for (auto it = servidores.begin(); it < servidores.end(); it++)
+                    {
+                        if(nome == it->getNome())
+                        {
+                            existe = true;
+                        }
+                    }
+                    
+                    if (existe == false)
+                    {
+                        std::cout << "\"Sevidor 'minha casa' não existe" << std::endl;
+                    }
+                    
+                }
+            }
         }
         else if (linha[0] == "set-server-invite-code")
         {

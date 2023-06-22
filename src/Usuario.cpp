@@ -10,8 +10,8 @@ Usuario::Usuario(std::string nome, std::string email, std::string senha)
     this->nome = nome;
     this->email = email;
     this->senha = senha;
-    this->quantUsuarios++;
-    this->id = quantUsuarios;
+    this->id = 0;
+    this->quantUsuarios = 0;
 }
 
 Usuario::~Usuario()
