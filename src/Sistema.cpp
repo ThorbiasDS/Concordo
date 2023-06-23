@@ -132,8 +132,8 @@ void Sistema::escolher()
 
     while (ativo == true)
     {
-        getline(std::cin, comando);
-        linha = split(comando, ' ');
+        getline(std::cin, this->comando);
+        linha = split(this->comando, ' ');
 
         if (linha[0] == "quit")
         {
@@ -212,17 +212,24 @@ void Sistema::escolher()
         }
         else if (linha[0] == "disconnect")
         {
-            if (this->usuarioLogado.getNome() == "" && this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getSenha() == "")
+            if (this->estado != 1)
             {
-                std::cout << "\"Não está conectado\"" << std::endl;
+                std::cout << "\"Não é possível desconectar do servidor nesse estado\"" << std::endl;
             }
             else
             {
-                std::cout << "\"Desconectando usuário\"" << this->usuarioLogado.getEmail() << std::endl;
-                this->usuarioLogado.setNome("");
-                this->usuarioLogado.setEmail("");
-                this->usuarioLogado.setSenha("");
-                this->estado = 0;
+                if (this->usuarioLogado.getNome() == "" && this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Não está conectado\"" << std::endl;
+                }
+                else
+                {
+                    std::cout << "\"Desconectando usuário\"" << this->usuarioLogado.getEmail() << std::endl;
+                    this->usuarioLogado.setNome("");
+                    this->usuarioLogado.setEmail("");
+                    this->usuarioLogado.setSenha("");
+                    this->estado = 0;
+                }
             }
         }
         else if (linha[0] == "create-server")
@@ -281,28 +288,156 @@ void Sistema::escolher()
 
                     for (auto it = servidores.begin(); it < servidores.end(); it++)
                     {
-                        if(nome == it->getNome())
+                        if (nome == it->getNome())
                         {
                             existe = true;
                         }
                     }
-                    
+
                     if (existe == false)
                     {
-                        std::cout << "\"Sevidor 'minha casa' não existe" << std::endl;
+                        std::cout << "\"Sevidor '" << nome << "' não existe" << std::endl;
                     }
-                    
+                    else if (existe == true)
+                    {
+                        for (auto it = (linha.begin() + 2); it < linha.end(); it++)
+                        {
+                            descricao = descricao + *it + " ";
+                        }
+
+                        for (auto it = servidores.begin(); it < servidores.end(); it++)
+                        {
+                            if (nome == it->getNome())
+                            {
+                                it->setDescricao(descricao);
+                            }
+                        }
+                    }
                 }
             }
         }
         else if (linha[0] == "set-server-invite-code")
         {
+            if (this->estado != 1)
+            {
+                std::cout << "\"Não é possível setar o código de convite de um servidor nesse estado\"" << std::endl;
+            }
+            else
+            {
+                if (this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getNome() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Sem usuário logado\"" << std::endl;
+                }
+                else
+                {
+                    std::string nome = linha[1];
+                    std::string codigo = linha[2];
+                    bool existe = false;
+
+                    for (auto it = servidores.begin(); it < servidores.end(); it++)
+                    {
+                        if (nome == it->getNome())
+                        {
+                            existe = true;
+                        }
+                    }
+
+                    if (existe == false)
+                    {
+                        std::cout << "\"Sevidor '" << nome << "'não existe" << std::endl;
+                    }
+                    else if (existe == true)
+                    {
+                        for (auto it = servidores.begin(); it < servidores.end(); it++)
+                        {
+                            if (nome == it->getNome())
+                            {
+                                if (codigo == "")
+                                {
+                                    it->setCodigoConvite(codigo);
+                                    std::cout << "\"Código de convite do servidor '" << nome << "' removido!\"" << std::endl;
+                                }
+                                else
+                                {
+                                    it->setCodigoConvite(codigo);
+                                    std::cout << "\"Código de convite do servdior '" << nome << "' modificado!" << std::endl;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         else if (linha[0] == "list-servers")
         {
+            if (this->estado != 1)
+            {
+                std::cout << "\"Não é possível listar os servidores nesse estado\"" << std::endl;
+            }
+            else
+            {
+                if (this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getNome() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Sem usuário logado\"" << std::endl;
+                }
+                else
+                {
+                    for (auto it = servidores.begin(); it < servidores.end(); it++)
+                    {
+                        std::cout << it->getNome() << std::endl;
+                    }
+                }
+            }
         }
         else if (linha[0] == "remove-server")
         {
+            if (this->estado != 1)
+            {
+                std::cout << "\"Não é possível remover um servidor nesse estado\"" << std::endl;
+            }
+            else
+            {
+                if (this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getNome() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Sem usuário logado\"" << std::endl;
+                }
+                else
+                {
+                    std::string nome = linha[1];
+                    bool existe = false;
+
+                    for (auto it = servidores.begin(); it < servidores.end(); it++)
+                    {
+                        if (nome == it->getNome())
+                        {
+                            existe = true;
+                        }
+                    }
+
+                    if (existe == false)
+                    {
+                        std::cout << "\"Sevidor '" << nome << "' não encontrado\"" << std::endl;
+                    }
+                    else if (existe == true)
+                    {
+                        for (auto it = servidores.begin(); it < servidores.end(); it++)
+                        {
+                            if (nome == it->getNome())
+                            {
+                                if (it->getUsuarioDonoId() == this->usuarioLogado.getId())
+                                {
+                                    servidores.erase(it);
+                                    std::cout << "\"Servidor '" << nome << "' removido\"" << std::endl;
+                                }
+                                else
+                                {
+                                    std::cout << "\"Você não é o dono do servidor '" << nome << "'\"" << std::endl;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         else if (linha[0] == "enter-server")
         {
