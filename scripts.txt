@@ -1,1 +1,19 @@
-create-user thor@marvel.br Thor777 Tobias Daniel Siqueira
+create-user thor@marvel.ufrn.br Thor777 Tobias Daniel Siqueira
+create-user wanda@marvel.ufrn.br Wanda888 Wanda Maximoff
+create-user visao@marvel.ufrn.br Visao999 Visão
+login thor@marvel.ufrn.br Thor777
+login wanda@marvel.ufrn.br Wanda888
+disconnect
+login wanda@marvel.ufrn.br Wanda888
+disconnect
+login visao@marvel.br Visao999
+login visao@marvel.ufrn.br Visao999
+create-server vingadores
+create-server vingadores
+set-server-desc vingadores "Os heróis mais poderosos da terra"
+set-server-desc ligadajustica "DC Comics"
+disconnect
+login wanda@marvel.ufrn.br Wanda888
+set-server-desc vingadores "Mudando descricao"
+set-server-invite-code vingadores 111
+set-server-invite-code vingadores

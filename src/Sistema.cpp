@@ -110,6 +110,16 @@ void Sistema::setGeradorQuantidade(int geradorQuantidade)
     this->geradorQuantidade = geradorQuantidade;
 }
 
+std::vector<int> Sistema::getParticipantesID()
+{
+    return this->participantesID;
+}
+
+void Sistema::setParticipantesID(std::vector<int> participantes)
+{
+    this->participantesID = participantesID;
+}
+
 std::vector<std::string> Sistema::split(const std::string &linha, char sep)
 {
     std::vector<std::string> tokens;
@@ -162,7 +172,7 @@ void Sistema::escolher()
                 {
                     if (it->getEmail() == email)
                     {
-                        std::cout << "Usuário já existe" << std::endl;
+                        std::cout << "\"Usuário já existe\"" << std::endl;
                         existe = true;
                     }
                 }
@@ -198,7 +208,7 @@ void Sistema::escolher()
                     if (it->getEmail() == email && it->getSenha() == senha)
                     {
                         this->usuarioLogado = *it;
-                        std::cout << "Logado como " << it->getEmail() << std::endl;
+                        std::cout << "\"Logado como " << it->getEmail() << "\"" << std::endl;
                         existe = true;
                         this->estado = 1;
                     }
@@ -206,7 +216,7 @@ void Sistema::escolher()
 
                 if (existe == false)
                 {
-                    std::cout << "Senha ou usuários inválidos!" << std::endl;
+                    std::cout << "\"Senha ou usuários inválidos!\"" << std::endl;
                 }
             }
         }
@@ -224,7 +234,7 @@ void Sistema::escolher()
                 }
                 else
                 {
-                    std::cout << "\"Desconectando usuário\"" << this->usuarioLogado.getEmail() << std::endl;
+                    std::cout << "\"Desconectando usuário " << this->usuarioLogado.getEmail() << "\"" << std::endl;
                     this->usuarioLogado.setNome("");
                     this->usuarioLogado.setEmail("");
                     this->usuarioLogado.setSenha("");
@@ -291,27 +301,27 @@ void Sistema::escolher()
                         if (nome == it->getNome())
                         {
                             existe = true;
+
+                            for (auto it = (linha.begin() + 2); it < linha.end(); it++)
+                            {
+                                descricao = descricao + *it + " ";
+                            }
+
+                            if (it->getUsuarioDonoId() == this->usuarioLogado.getId())
+                            {
+                                it->setDescricao(descricao);
+                                std::cout << "\"Descrição do servidor '" << nome << "' modificada!\"" << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << "\"Você não pode alterar a descricao de um servidor que não foi criado por você\"" << std::endl;
+                            }
                         }
                     }
 
                     if (existe == false)
                     {
-                        std::cout << "\"Sevidor '" << nome << "' não existe" << std::endl;
-                    }
-                    else if (existe == true)
-                    {
-                        for (auto it = (linha.begin() + 2); it < linha.end(); it++)
-                        {
-                            descricao = descricao + *it + " ";
-                        }
-
-                        for (auto it = servidores.begin(); it < servidores.end(); it++)
-                        {
-                            if (nome == it->getNome())
-                            {
-                                it->setDescricao(descricao);
-                            }
-                        }
+                        std::cout << "\"Servidor '" << nome << "' não existe\"" << std::endl;
                     }
                 }
             }
@@ -339,31 +349,23 @@ void Sistema::escolher()
                         if (nome == it->getNome())
                         {
                             existe = true;
+
+                            if (codigo == "")
+                            {
+                                it->setCodigoConvite(codigo);
+                                std::cout << "\"Código de convite do servidor '" << nome << "' removido!\"" << std::endl;
+                            }
+                            else
+                            {
+                                it->setCodigoConvite(codigo);
+                                std::cout << "\"Código de convite do servidor '" << nome << "' modificado!\"" << std::endl;
+                            }
                         }
                     }
 
                     if (existe == false)
                     {
-                        std::cout << "\"Sevidor '" << nome << "'não existe" << std::endl;
-                    }
-                    else if (existe == true)
-                    {
-                        for (auto it = servidores.begin(); it < servidores.end(); it++)
-                        {
-                            if (nome == it->getNome())
-                            {
-                                if (codigo == "")
-                                {
-                                    it->setCodigoConvite(codigo);
-                                    std::cout << "\"Código de convite do servidor '" << nome << "' removido!\"" << std::endl;
-                                }
-                                else
-                                {
-                                    it->setCodigoConvite(codigo);
-                                    std::cout << "\"Código de convite do servdior '" << nome << "' modificado!" << std::endl;
-                                }
-                            }
-                        }
+                        std::cout << "\"Servidor '" << nome << "'não existe\"" << std::endl;
                     }
                 }
             }
@@ -441,6 +443,62 @@ void Sistema::escolher()
         }
         else if (linha[0] == "enter-server")
         {
+            if (this->estado != 1)
+            {
+                std::cout << "\"Não é possível entrar um servidor nesse estado\"" << std::endl;
+            }
+            else
+            {
+                if (this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getNome() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Sem usuário logado\"" << std::endl;
+                }
+                else
+                {
+                    std::string nome = linha[1];
+                    std::string codigo = linha[2];
+                    bool existe = false;
+
+                    for (auto it = servidores.begin(); it < servidores.end(); it++)
+                    {
+                        if (nome == it->getNome())
+                        {
+                            existe = true;
+
+                            if (it->getCodigoConvite() == " ")
+                            {
+                                this->participantesID.push_back(this->usuarioLogado.getId());
+                                it->setParticipantesIDs(this->participantesID);
+                                std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
+                            }
+                            else
+                            {
+                                if (this->usuarioLogado.getId() == it->getUsuarioDonoId())
+                                {
+                                    this->participantesID.push_back(this->usuarioLogado.getId());
+                                    it->setParticipantesIDs(this->participantesID);
+                                    std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
+                                }
+                                else if (codigo == it->getCodigoConvite())
+                                {
+                                    this->participantesID.push_back(this->usuarioLogado.getId());
+                                    it->setParticipantesIDs(this->participantesID);
+                                    std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
+                                }
+                                else
+                                {
+                                    std::cout << "\"Servidor requer código de convite\"" << std::endl;
+                                }
+                            }
+                        }
+                    }
+
+                    if (existe == false)
+                    {
+                        std::cout << "\"Sevidor '" << nome << "' não encontrado\"" << std::endl;
+                    }
+                }
+            }
         }
         else if (linha[0] == "leave-server")
         {

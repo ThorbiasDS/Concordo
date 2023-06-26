@@ -13,6 +13,7 @@ private:
 public:
     CanalTexto();
     ~CanalTexto();
+    
     std::vector <Mensagem> getMensagens();
     void setMensagens(std::vector <Mensagem> mensagens);
 };
