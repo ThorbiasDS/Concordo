@@ -8,7 +8,7 @@ Servidor::Servidor()
 Servidor::Servidor(std::string nome)
 {
     this->nome = nome;
-    this->codigoConvite = " ";
+    this->codigoConvite = "";
 }
 
 Servidor::~Servidor()

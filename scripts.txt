@@ -10,6 +10,13 @@ login visao@marvel.br Visao999
 login visao@marvel.ufrn.br Visao999
 create-server vingadores
 create-server vingadores
+create-server guardioes
+create-server inumanos
+create-server x-men
+list-servers
+remove-server minha-casa
+remove-server x-men
+list-servers
 set-server-desc vingadores "Os heróis mais poderosos da terra"
 set-server-desc ligadajustica "DC Comics"
 disconnect
@@ -17,3 +24,7 @@ login wanda@marvel.ufrn.br Wanda888
 set-server-desc vingadores "Mudando descricao"
 set-server-invite-code vingadores 111
 set-server-invite-code vingadores
+enter-server vingadores
+leave-server
+enter-server vingadores
+quit

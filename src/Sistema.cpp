@@ -14,6 +14,7 @@ Sistema::Sistema()
     this->usuarioLogado.setSenha("");
     this->usuarioLogado.setId(0);
     this->usuarioLogado.setQuantUsuarios(0);
+    this->servidorVisualizando.setNome("");
 }
 
 Sistema::~Sistema()
@@ -341,8 +342,17 @@ void Sistema::escolher()
                 else
                 {
                     std::string nome = linha[1];
-                    std::string codigo = linha[2];
+                    std::string codigo;
                     bool existe = false;
+
+                    if(linha.size() == 3)
+                    {
+                        codigo = linha[2];
+                    }
+                    else
+                    {
+                        codigo = "";
+                    }
 
                     for (auto it = servidores.begin(); it < servidores.end(); it++)
                     {
@@ -456,8 +466,17 @@ void Sistema::escolher()
                 else
                 {
                     std::string nome = linha[1];
-                    std::string codigo = linha[2];
+                    std::string codigo;
                     bool existe = false;
+
+                    if(linha.size() == 3)
+                    {
+                        codigo = linha[2];
+                    }
+                    else
+                    {
+                        codigo = "";
+                    }
 
                     for (auto it = servidores.begin(); it < servidores.end(); it++)
                     {
@@ -465,10 +484,12 @@ void Sistema::escolher()
                         {
                             existe = true;
 
-                            if (it->getCodigoConvite() == " ")
+                            if (it->getCodigoConvite() == "")
                             {
                                 this->participantesID.push_back(this->usuarioLogado.getId());
                                 it->setParticipantesIDs(this->participantesID);
+                                this->servidorVisualizando = *it;
+                                this->estado = 2;
                                 std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
                             }
                             else
@@ -477,12 +498,16 @@ void Sistema::escolher()
                                 {
                                     this->participantesID.push_back(this->usuarioLogado.getId());
                                     it->setParticipantesIDs(this->participantesID);
+                                    this->servidorVisualizando = *it;
+                                    this->estado = 2;
                                     std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
                                 }
                                 else if (codigo == it->getCodigoConvite())
                                 {
                                     this->participantesID.push_back(this->usuarioLogado.getId());
                                     it->setParticipantesIDs(this->participantesID);
+                                    this->servidorVisualizando = *it;
+                                    this->estado = 2;
                                     std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
                                 }
                                 else
@@ -502,9 +527,56 @@ void Sistema::escolher()
         }
         else if (linha[0] == "leave-server")
         {
+            if (this->estado != 2)
+            {
+                std::cout << "\"Não é possível sair de um servidor nesse estado\"" << std::endl;
+            }
+            else
+            {
+                if (this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getNome() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Sem usuário logado\"" << std::endl;
+                }
+                else
+                {
+                    if(this->servidorVisualizando.getNome() == "")
+                    {
+                        std::cout << "\"Você não está visualizando nenhum servidor\"" << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "\"Saindo do servidor '" << this->servidorVisualizando.getNome() << "'\"" << std::endl; 
+                        this->servidorVisualizando.setNome("");
+                        this->servidorVisualizando.setUsuarioDonoId(0);
+                        this->servidorVisualizando.setDescricao("");
+                        this->servidorVisualizando.setCodigoConvite(0);
+                    }
+                }
+            }
         }
         else if (linha[0] == "list-participants")
         {
+            if (this->estado != 2)
+            {
+                std::cout << "\"Não é possível sair de um servidor nesse estado\"" << std::endl;
+            }
+            else
+            {
+                if (this->usuarioLogado.getEmail() == "" && this->usuarioLogado.getNome() == "" && this->usuarioLogado.getSenha() == "")
+                {
+                    std::cout << "\"Sem usuário logado\"" << std::endl;
+                }
+                else
+                {
+                    for (auto it = this->servidorVisualizando.getParticipantesIDs().begin(); it < this->servidorVisualizando.getParticipantesIDs().end(); it++)
+                    {
+                        for (auto count = this->usuarios.begin(); count < this->usuarios.end(); count++)
+                        {
+                            
+                        }
+                    }
+                }
+            }
         }
     }
 }
