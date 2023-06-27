@@ -31,7 +31,9 @@ Abaixo estão listados os comandos referentes às funções de Usuários e Servi
 
 ### Como compilar e rodar o programa
 
-Para compilar o programa é necessário estar com CMake instalado em seu computador
+Para compilar o programa é necessário estar com CMake instalado em seu computador. Após instalado você deve entrar na pasta do projeto em rodar o comando *cmake .* para que a ferramenta crie os arquivos necessários para a compilação. Depois disso, utilize o comando *make* para que o arquivo executável seja gerado.
+
+Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, basta usar o teclado para digitar os comandos ou o arquivo scripts.txt que já contêm comandos, fazendo *./program < scripsts.txt* para que eles sejam passados ao programa.
 
 ### Exemplos de entrada e saída 
 
