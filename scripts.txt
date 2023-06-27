@@ -26,5 +26,4 @@ set-server-invite-code vingadores 111
 set-server-invite-code vingadores
 enter-server vingadores
 leave-server
-enter-server vingadores
 quit
