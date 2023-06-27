@@ -6,7 +6,9 @@
 ### Descrição do projeto
 
 Este projeto foi proposto na disciplina Liguagem de Programação 1, do curso de Bacharelado em Tecnologia da Informação do IMD/UFRN.
+
 Ele tem como objetivo a criação de um mini clone do Discord utilizando apenas comandos de texto. O usuário deve digitar os comandos no terminal e o sistema emitirá uma resposta de acordo com o que foi pedido.
+
 Esta aplicação não trabalha com recursos de rede nem de voz. A classe CanalVoz armazena apenas a última mensagem enviada.
 A entrega do projeto foi dividida em três partes, com a primeira contendo apenas a implementação das funções referentes aos Usuários e Servidores.
 
@@ -26,3 +28,21 @@ Abaixo estão listados os comandos referentes às funções de Usuários e Servi
 - enter-server *nome*
 - leave-server
 - list-participants
+
+### Como compilar e rodar o programa
+
+Para compilar o programa é necessário estar com CMake instalado em seu computador
+
+### Exemplos de entrada e saída 
+
+    Entrada: create-user thor@marvel.ufrn.br Thor777 Thor Odinson
+    Saída: "Usuário criado"
+
+    Entrada: create-server vingadores
+    Saída: "Servidor criado"
+
+    Entrada: set-server-invite-code vingadores 111
+    Saída: "Código de convite do servidor 'vingadores' modificado"
+
+    Entrada: remove-server vingadores
+    Saída: "Servidor 'vingadores' removido"
