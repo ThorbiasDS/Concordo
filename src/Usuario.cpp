@@ -5,13 +5,13 @@ Usuario::Usuario()
 
 }
 
-Usuario::Usuario(std::string nome, std::string email, std::string senha)
+Usuario::Usuario(std::string nome, std::string email, std::string senha, int id, int quantUsuarios)
 {
     this->nome = nome;
     this->email = email;
     this->senha = senha;
-    this->id = 0;
-    this->quantUsuarios = 0;
+    this->id = id;
+    this->quantUsuarios = quantUsuarios;
 }
 
 Usuario::~Usuario()

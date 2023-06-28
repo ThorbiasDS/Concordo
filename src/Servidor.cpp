@@ -5,10 +5,11 @@ Servidor::Servidor()
 
 }
 
-Servidor::Servidor(std::string nome)
+Servidor::Servidor(std::string nome, int usuarioDonoId)
 {
     this->nome = nome;
     this->codigoConvite = "";
+    this->usuarioDonoId = usuarioDonoId;
 }
 
 Servidor::~Servidor()

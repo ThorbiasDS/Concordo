@@ -48,3 +48,7 @@ Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, b
 
     Entrada: remove-server vingadores
     Saída: "Servidor 'vingadores' removido"
+
+### Limitações e dificuldades
+
+Esta versão do Concordo está com algumas alocações de memória que não foram desalocadas. Além disso o arquivo de scripts não está muito completo.

@@ -20,7 +20,7 @@ public:
      * @brief Construtores e Destrutores da classe
     */
     Usuario();
-    Usuario(std::string nome, std::string email, std::string senha);
+    Usuario(std::string nome, std::string email, std::string senha, int id, int quantUsuarios);
     ~Usuario();
 
     /**

@@ -20,8 +20,6 @@ private:
     Canal canalVisualizando;
     int estado;
     std::string comando;
-    int geradorID;
-    int geradorQuantidade;
     std::vector<int> participantesID;
 
 public:
@@ -72,18 +70,6 @@ public:
      */
     std::string getComando();
     void setComando(std::string comando);
-
-    /**
-     * @brief Métodos get e set para o atributo geradorID
-     */
-    int getGeradorID();
-    void setGeradorID(int geradorID);
-
-    /**
-     * @brief Métodos get e set para o atributo geradorQuantidade
-     */
-    int getGeradorQuantidade();
-    void setGeradorQuantidade(int geradorQuantidade);
 
     /**
      * @brief Métodos get e set para o atributo participantesID

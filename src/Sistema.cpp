@@ -7,8 +7,6 @@ Sistema::Sistema()
 {
     this->comando = "";
     this->estado = 0;
-    this->geradorID = 0;
-    this->geradorQuantidade = 0;
     this->usuarioLogado.setNome("");
     this->usuarioLogado.setEmail("");
     this->usuarioLogado.setSenha("");
@@ -91,26 +89,6 @@ void Sistema::setComando(std::string comando)
     this->comando = comando;
 }
 
-int Sistema::getGeradorID()
-{
-    return this->geradorID;
-}
-
-void Sistema::setGeradorID(int geradorID)
-{
-    this->geradorID = geradorID;
-}
-
-int Sistema::getGeradorQuantidade()
-{
-    return this->geradorQuantidade;
-}
-
-void Sistema::setGeradorQuantidade(int geradorQuantidade)
-{
-    this->geradorQuantidade = geradorQuantidade;
-}
-
 std::vector<int> Sistema::getParticipantesID()
 {
     return this->participantesID;
@@ -140,6 +118,8 @@ void Sistema::escolher()
 {
     bool ativo = true;
     std::vector<std::string> linha;
+    int gerarID = 0;
+    int gerarQuantidade = 0;
 
     while (ativo == true)
     {
@@ -180,15 +160,9 @@ void Sistema::escolher()
 
                 if (existe == false)
                 {
-                    Usuario usuario(nome, email, senha);
+                    Usuario usuario(nome, email, senha, ++gerarID, ++gerarQuantidade);
                     usuarios.push_back(usuario);
                     std::cout << "\"Usuario criado\"" << std::endl;
-
-                    this->geradorID++;
-                    this->geradorQuantidade++;
-
-                    usuario.setQuantUsuarios(this->geradorQuantidade);
-                    usuario.setId(this->geradorID);
                 }
             }
         }
@@ -239,6 +213,8 @@ void Sistema::escolher()
                     this->usuarioLogado.setNome("");
                     this->usuarioLogado.setEmail("");
                     this->usuarioLogado.setSenha("");
+                    this->usuarioLogado.setId(0);
+                    this->usuarioLogado.setQuantUsuarios(0);
                     this->estado = 0;
                 }
             }
@@ -265,9 +241,8 @@ void Sistema::escolher()
 
                 if (existe == false)
                 {
-                    Servidor servidor(nome);
+                    Servidor servidor(nome, this->usuarioLogado.getId());
                     servidores.push_back(servidor);
-                    servidor.setUsuarioDonoId(this->usuarioLogado.getId());
                     std::cout << "\"Servidor criado\"" << std::endl;
                 }
             }
@@ -302,7 +277,7 @@ void Sistema::escolher()
                         }
                         else
                         {
-                            std::cout << "\"Você não pode alterar a descricao de um servidor que não foi criado por você\"" << std::endl;
+                            std::cout << "\"Você não pode alterar a descrição de um servidor que não foi criado por você\"" << std::endl;
                         }
                     }
                 }
@@ -487,10 +462,10 @@ void Sistema::escolher()
                 else
                 {
                     std::cout << "\"Saindo do servidor '" << this->servidorVisualizando.getNome() << "'\"" << std::endl;
+                    this->servidorVisualizando.setCodigoConvite("");
+                    this->servidorVisualizando.setDescricao("");
                     this->servidorVisualizando.setNome("");
                     this->servidorVisualizando.setUsuarioDonoId(0);
-                    this->servidorVisualizando.setDescricao("");
-                    this->servidorVisualizando.setCodigoConvite(0);
                 }
             }
         }
@@ -502,7 +477,23 @@ void Sistema::escolher()
             }
             else
             {
-                
+                if (this->servidorVisualizando.getNome() != "")
+                {
+                    for (auto i = this->usuarios.begin(); i < this->usuarios.end(); i++)
+                    {
+                        for (auto j = this->servidorVisualizando.getParticipantesIDs().begin(); j < this->servidorVisualizando.getParticipantesIDs().end(); j++)
+                        {
+                            if (i->getId() == *j)
+                            {
+                                std::cout << i->getNome() << std::endl;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    std::cout << "Você não está visualizando nenhum servidor" << std::endl;
+                }
             }
         }
     }

@@ -23,7 +23,7 @@ public:
      * @brief Construtores e Destrutor da classe
     */
     Servidor();
-    Servidor(std::string nome);
+    Servidor(std::string nome, int usuarioDonoId);
     ~Servidor();
 
     /**
