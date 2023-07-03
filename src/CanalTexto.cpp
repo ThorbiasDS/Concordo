@@ -6,6 +6,11 @@ CanalTexto::CanalTexto()
 
 }
 
+CanalTexto::CanalTexto(std::string nome)
+{
+    this->nome = nome;
+}
+
 CanalTexto::~CanalTexto()
 {
 

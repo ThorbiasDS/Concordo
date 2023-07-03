@@ -19,6 +19,7 @@ public:
      * @brief Construtor e Destrutor da classe
     */
     CanalTexto();
+    CanalTexto(std::string nome);
     ~CanalTexto();
     
     /**
@@ -26,6 +27,8 @@ public:
     */
     std::vector <Mensagem> getMensagens();
     void setMensagens(std::vector <Mensagem> mensagens);
+    
+    void adicionarMensagens(Mensagem mensagem);
 };
 
 #endif

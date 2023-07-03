@@ -8,7 +8,7 @@
 */
 class Canal
 {
-private:
+protected:
     std::string nome;
 public:
 
@@ -23,6 +23,8 @@ public:
     */
     std::string getNome();
     void setNome(std::string nome);
+
+    void adicionarMensagem(Mensagem mensagem);
 };
 
 #endif

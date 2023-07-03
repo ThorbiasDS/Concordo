@@ -18,6 +18,7 @@ public:
      * @brief Construtor e Destrutor da classe
     */
     CanalVoz();
+    CanalVoz(std::string nome);
     ~CanalVoz();
     
     /**
@@ -25,6 +26,8 @@ public:
     */
     Mensagem getUltimaMensagem();
     void setUltimaMensagem(Mensagem ultimaMensagem);
+
+    void adicionarMensagem(Mensagem mensagem);
 };
 
 #endif

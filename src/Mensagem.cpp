@@ -5,6 +5,13 @@ Mensagem::Mensagem()
 
 }
 
+Mensagem::Mensagem(std::string dataHora, int enviadaPor, std::string conteudo)
+{
+    this->dataHora = dataHora;
+    this->enviadaPor = enviadaPor;
+    this->conteudo = conteudo;
+}
+
 Mensagem::~Mensagem()
 {
 

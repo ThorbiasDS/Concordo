@@ -1,7 +1,10 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 #include "Sistema.h"
 #include "Usuario.h"
+#include "CanalTexto.h"
+#include "CanalVoz.h"
 
 Sistema::Sistema()
 {
@@ -494,6 +497,134 @@ void Sistema::escolher()
                 {
                     std::cout << "Você não está visualizando nenhum servidor" << std::endl;
                 }
+            }
+        }
+        else if (linha[0] == "list-channels")
+        {
+            if (this->estado != 2)
+            {
+                std::cout << "\"Não é possível listar canais nesse estado\"" << std::endl;
+            }
+            else
+            {
+                std::cout << "#canais de texto" << std::endl;
+                for (auto i = textos.begin(); i < textos.end(); i++)
+                {
+                }
+
+                std::cout << "#canais de áudio" << std::endl;
+                for (auto i = vozes.begin(); i < vozes.end(); i++)
+                {
+                }
+            }
+        }
+        else if (linha[0] == "create-channel")
+        {
+            if (this->estado != 2)
+            {
+                std::cout << "\"Não é possível criar canais nesse estado\"" << std::endl;
+            }
+            else
+            {
+                std::string nome = linha[1];
+                std::string tipo = linha[2];
+                std::vector<Canal *> textos;
+                std::vector<Canal *> vozes;
+                bool textoExiste = false;
+                bool vozExiste = false;
+
+                if (this->usuarioLogado.getId() != this->servidorVisualizando.getUsuarioDonoId())
+                {
+                    std::cout << "\"Você não pode criar canais aqui pois não é dono do servidor '" << nome << "'\"" << std::endl;
+                }
+                else
+                {
+                    if (tipo == "texto")
+                    {
+                        for (auto i = this->servidorVisualizando.getCanais().begin(); i < this->servidorVisualizando.getCanais().end(); i++)
+                        {
+                            if (*i == nome)
+                            {
+                                std::cout << "\"Canal '" << nome << "' já existe!\"" << std::endl;
+                            }
+                            else
+                            {
+                                Canal *texto = new CanalVoz(nome);
+                                textos.push_back(texto);
+                                this->servidorVisualizando.setCanais(textos);
+                            }
+                        }
+                    }
+                    else if (tipo == "voz")
+                    {
+                        for (auto i = this->servidorVisualizando.getCanais().begin(); i < this->servidorVisualizando.getCanais().end(); i++)
+                        {
+                            if (*i == nome)
+                            {
+                                std::cout << "\"Canal '" << nome << "' já existe!\"" << std::endl;
+                            }
+                            else
+                            {
+                                Canal *voz = new CanalVoz(nome);
+                                vozes.push_back(voz);
+                                this->servidorVisualizando.setCanais(vozes);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (linha[0] == "enter-channel")
+        {
+            if (this->estado != 2)
+            {
+                std::cout << "\"Não é possível entrar em um canal nesse estado\"" << std::endl;
+            }
+            else
+            {
+            }
+        }
+        else if (linha[0] == "leave-channel")
+        {
+            if (this->estado != 3)
+            {
+                std::cout << "\"Não é possível sair de um canal nesse estado\"" << std::endl;
+            }
+            else
+            {
+            }
+        }
+        else if (linha[0] == "send-message")
+        {
+            if (this->estado != 3)
+            {
+                std::cout << "\"Não é possível enviar mensagens nesse estado\"" << std::endl;
+            }
+            else
+            {
+                std::string conteudo = "";
+                std::string dataHora = "";
+
+                auto agora = std::chrono::system_clock::now();
+                std::time_t momento = std::chrono::system_clock::to_time_t(agora);
+
+                for (auto it = (linha.begin() + 1); it < linha.end(); it++)
+                {
+                    conteudo = conteudo + *it + " ";
+                }
+
+                Mensagem msg(dataHora, this->usuarioLogado, conteudo);
+                this->canalVisualizando.adicionarMensagem(msg);
+            }
+        }
+        else if (linha[0] == "list-messages")
+        {
+            if (this->estado != 2)
+            {
+                std::cout << "\"Não é possível listar mensagens nesse estado\"" << std::endl;
+            }
+            else
+            {
             }
         }
     }

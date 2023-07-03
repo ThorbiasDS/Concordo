@@ -5,6 +5,11 @@ CanalVoz::CanalVoz()
 
 }
 
+CanalVoz::CanalVoz(std::string nome)
+{   
+    this->nome = nome;
+}
+
 CanalVoz::~CanalVoz()
 {
 
