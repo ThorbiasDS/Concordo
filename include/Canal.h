@@ -2,6 +2,7 @@
 #define CANAL_H
 
 #include <iostream>
+#include "Mensagem.h"
 
 /**
  * @brief Essa é a Canal que servirá como classe base para as classes CanalTexto e CanalVoz
@@ -24,7 +25,15 @@ public:
     std::string getNome();
     void setNome(std::string nome);
 
-    void adicionarMensagem(Mensagem mensagem);
+    /**
+     * @brief Função para adicionar mensagens ao canal (Texto ou Voz)
+    */
+    virtual void adicionarMensagens(Mensagem mensagem);
+
+    /**
+     * @brief Função para listar mensagens ao canal (Texto ou Voz)
+    */
+    virtual void listarMensagens();
 };
 
 #endif

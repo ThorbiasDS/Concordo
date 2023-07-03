@@ -6,7 +6,7 @@ CanalVoz::CanalVoz()
 }
 
 CanalVoz::CanalVoz(std::string nome)
-{   
+{
     this->nome = nome;
 }
 
@@ -23,4 +23,14 @@ Mensagem CanalVoz::getUltimaMensagem()
 void CanalVoz::setUltimaMensagem(Mensagem ultimaMensagem)
 {
     this->ultimaMensagem = ultimaMensagem;
+}
+
+void CanalVoz::adicionarMensagens(Mensagem mensagem)
+{
+    this->ultimaMensagem = mensagem;
+}
+
+void CanalVoz::listarMensagens()
+{
+    std::cout << this->ultimaMensagem.getConteudo() << std::endl;
 }

@@ -1106,6 +1106,11 @@ CMakeFiles/program.dir/src/Sistema.cpp.o: src/Sistema.cpp \
   /usr/include/c++/11/bits/ostream.tcc \
   /usr/include/c++/11/istream \
   /usr/include/c++/11/bits/istream.tcc \
+  /usr/include/c++/11/chrono \
+  /usr/include/c++/11/ratio \
+  /usr/include/c++/11/limits \
+  /usr/include/c++/11/ctime \
+  /usr/include/c++/11/bits/parse_numbers.h \
   include/Sistema.h \
   /usr/include/c++/11/vector \
   /usr/include/c++/11/bits/stl_uninitialized.h \
@@ -1115,7 +1120,10 @@ CMakeFiles/program.dir/src/Sistema.cpp.o: src/Sistema.cpp \
   include/Usuario.h \
   include/Servidor.h \
   include/Canal.h \
-  include/Usuario.h
+  include/Usuario.h \
+  include/CanalTexto.h \
+  include/Mensagem.h \
+  include/CanalVoz.h
 
 CMakeFiles/program.dir/src/Usuario.cpp.o: src/Usuario.cpp \
   /usr/include/stdc-predef.h \
@@ -1494,6 +1502,12 @@ src/Usuario.cpp:
 
 include/Sistema.h:
 
+/usr/include/c++/11/bits/parse_numbers.h:
+
+/usr/include/c++/11/limits:
+
+/usr/include/c++/11/ratio:
+
 src/Servidor.cpp:
 
 src/Mensagem.cpp:
@@ -1565,6 +1579,8 @@ include/Servidor.h:
 src/main.cpp:
 
 /usr/include/stdio.h:
+
+/usr/include/c++/11/chrono:
 
 /usr/include/c++/11/cstdio:
 
@@ -1731,6 +1747,8 @@ include/Canal.h:
 /usr/include/c++/11/ext/type_traits.h:
 
 /usr/include/c++/11/iosfwd:
+
+/usr/include/c++/11/ctime:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 

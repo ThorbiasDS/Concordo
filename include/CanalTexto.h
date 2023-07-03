@@ -27,8 +27,17 @@ public:
     */
     std::vector <Mensagem> getMensagens();
     void setMensagens(std::vector <Mensagem> mensagens);
-    
-    void adicionarMensagens(Mensagem mensagem);
+
+    /**
+     * @brief Método herdado para adicionar mensagens
+     * @param mensagem recebe uma mensagem para ser adicionada na lista de mensagens
+    */
+    void adicionarMensagens(Mensagem mensagem) override;
+
+    /**
+     * @brief Função para listar mensagens ao canal
+    */
+    void listarMensagens() override;
 };
 
 #endif

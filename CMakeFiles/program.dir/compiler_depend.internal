@@ -1112,6 +1112,11 @@ CMakeFiles/program.dir/src/Sistema.cpp.o
  /usr/include/c++/11/bits/ostream.tcc
  /usr/include/c++/11/istream
  /usr/include/c++/11/bits/istream.tcc
+ /usr/include/c++/11/chrono
+ /usr/include/c++/11/ratio
+ /usr/include/c++/11/limits
+ /usr/include/c++/11/ctime
+ /usr/include/c++/11/bits/parse_numbers.h
  /home/thorbias/Área de Trabalho/Concordo/include/Sistema.h
  /usr/include/c++/11/vector
  /usr/include/c++/11/bits/stl_uninitialized.h
@@ -1122,6 +1127,9 @@ CMakeFiles/program.dir/src/Sistema.cpp.o
  /home/thorbias/Área de Trabalho/Concordo/include/Servidor.h
  /home/thorbias/Área de Trabalho/Concordo/include/Canal.h
  /home/thorbias/Área de Trabalho/Concordo/include/Usuario.h
+ /home/thorbias/Área de Trabalho/Concordo/include/CanalTexto.h
+ /home/thorbias/Área de Trabalho/Concordo/include/Mensagem.h
+ /home/thorbias/Área de Trabalho/Concordo/include/CanalVoz.h
 
 CMakeFiles/program.dir/src/Usuario.cpp.o
  /home/thorbias/Área de Trabalho/Concordo/src/Usuario.cpp

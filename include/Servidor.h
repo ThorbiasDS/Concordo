@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "Canal.h"
 
 /**
@@ -15,7 +16,7 @@ private:
     std::string nome;
     std::string descricao;
     std::string codigoConvite;
-    std::vector <Canal *> canais;
+    std::vector <Canal*> canais;
     std::vector <int> participantesIDs;
 public:
 
@@ -53,7 +54,7 @@ public:
     /**
      * @brief Métodos get e set para o atributo canais
     */
-    std::vector <Canal *> getCanais();
+    std::vector <Canal*> getCanais();
     void setCanais(std::vector <Canal*> canais);
     
     /**

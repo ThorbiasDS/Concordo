@@ -2,14 +2,16 @@
 
 Mensagem::Mensagem()
 {
-
+    this->conteudo = "";
+    this->dataHora = "";
+    this->enviadaPor = 0;
 }
 
-Mensagem::Mensagem(std::string dataHora, int enviadaPor, std::string conteudo)
+Mensagem::Mensagem(std::string conteudo, std::string dataHora, int enviadaPor)
 {
+    this->conteudo = conteudo;
     this->dataHora = dataHora;
     this->enviadaPor = enviadaPor;
-    this->conteudo = conteudo;
 }
 
 Mensagem::~Mensagem()
@@ -34,7 +36,7 @@ int Mensagem::getEnviadaPor()
 
 void Mensagem::setEnviadaPor(int enviadaPor)
 {
-
+    this->enviadaPor = enviadaPor;
 }
 
 std::string Mensagem::getConteudo()

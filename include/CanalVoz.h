@@ -27,7 +27,16 @@ public:
     Mensagem getUltimaMensagem();
     void setUltimaMensagem(Mensagem ultimaMensagem);
 
-    void adicionarMensagem(Mensagem mensagem);
+    /**
+     * @brief Método herdado para adicionar mensagens
+     * @param mensagem recebe uma mensagem para ser colocada no atributo ultimaMensagem
+    */
+    void adicionarMensagens(Mensagem mensagem) override;
+
+    /**
+     * @brief Função para listar a útlima mensagem do canal
+    */
+    void listarMensagens() override;
 };
 
 #endif

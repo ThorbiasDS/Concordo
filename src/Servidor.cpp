@@ -2,19 +2,18 @@
 
 Servidor::Servidor()
 {
-
+    
 }
 
 Servidor::Servidor(std::string nome, int usuarioDonoId)
 {
     this->nome = nome;
-    this->codigoConvite = "";
     this->usuarioDonoId = usuarioDonoId;
 }
 
 Servidor::~Servidor()
 {
-
+    this->canais.clear();
 }
 
 int Servidor::getUsuarioDonoId()
@@ -57,8 +56,8 @@ void Servidor::setCodigoConvite(std::string codigoConvite)
     this->codigoConvite = codigoConvite;
 }
 
-std::vector <Canal *> Servidor::getCanais()
-{   
+std::vector <Canal*> Servidor::getCanais()
+{
     return this->canais;
 }
 
@@ -67,12 +66,12 @@ void Servidor::setCanais(std::vector <Canal*> canais)
     this->canais = canais;
 }
 
-std::vector <int> Servidor::getParticipantesIDs()
+std::vector<int> Servidor::getParticipantesIDs()
 {
     return this->participantesIDs;
 }
 
-void Servidor::setParticipantesIDs(std::vector <int> participantesIDs)
+void Servidor::setParticipantesIDs(std::vector<int> participantesIDs)
 {
     this->participantesIDs = participantesIDs;
 }

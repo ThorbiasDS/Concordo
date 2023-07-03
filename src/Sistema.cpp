@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <typeinfo>
+#include <ctime>
 #include "Sistema.h"
 #include "Usuario.h"
 #include "CanalTexto.h"
@@ -503,18 +505,28 @@ void Sistema::escolher()
         {
             if (this->estado != 2)
             {
-                std::cout << "\"Não é possível listar canais nesse estado\"" << std::endl;
+                std::cout << "\"Não é possível listar os canais nesse estado\"" << std::endl;
             }
             else
             {
                 std::cout << "#canais de texto" << std::endl;
-                for (auto i = textos.begin(); i < textos.end(); i++)
+                for (auto i = this->servidorVisualizando.getCanais().begin(); i < this->servidorVisualizando.getCanais().end(); i++)
                 {
+                    const std::type_info &tipo = typeid(*i);
+                    if (tipo.name() == "texto")
+                    {
+                        std::cout << *i << std::endl;
+                    }
                 }
 
-                std::cout << "#canais de áudio" << std::endl;
-                for (auto i = vozes.begin(); i < vozes.end(); i++)
+                std::cout << "#canais de voz" << std::endl;
+                for (auto i = this->servidorVisualizando.getCanais().begin(); i < this->servidorVisualizando.getCanais().end(); i++)
                 {
+                    const std::type_info &tipo = typeid(*i);
+                    if (tipo.name() == "voz")
+                    {
+                        std::cout << *i << std::endl;
+                    }
                 }
             }
         }
@@ -522,67 +534,37 @@ void Sistema::escolher()
         {
             if (this->estado != 2)
             {
-                std::cout << "\"Não é possível criar canais nesse estado\"" << std::endl;
+                std::cout << "\"Não é possível criar um canal nesse estado\"" << std::endl;
             }
             else
             {
-                std::string nome = linha[1];
-                std::string tipo = linha[2];
-                std::vector<Canal *> textos;
-                std::vector<Canal *> vozes;
-                bool textoExiste = false;
-                bool vozExiste = false;
+                if (this->usuarioLogado.getId() == this->servidorVisualizando.getUsuarioDonoId())
+                {
+                    std::string nome = linha[1];
+                    std::string tipo = linha[2];
 
-                if (this->usuarioLogado.getId() != this->servidorVisualizando.getUsuarioDonoId())
-                {
-                    std::cout << "\"Você não pode criar canais aqui pois não é dono do servidor '" << nome << "'\"" << std::endl;
-                }
-                else
-                {
                     if (tipo == "texto")
                     {
-                        for (auto i = this->servidorVisualizando.getCanais().begin(); i < this->servidorVisualizando.getCanais().end(); i++)
-                        {
-                            if (*i == nome)
-                            {
-                                std::cout << "\"Canal '" << nome << "' já existe!\"" << std::endl;
-                            }
-                            else
-                            {
-                                Canal *texto = new CanalVoz(nome);
-                                textos.push_back(texto);
-                                this->servidorVisualizando.setCanais(textos);
-                            }
-                        }
+                        Canal *texto = new CanalTexto(nome);
+                        this->servidorVisualizando.getCanais().push_back(texto);
+                        std::cout << "\"Canal de texto '" << texto->getNome() << "' criado" << std::endl;
                     }
                     else if (tipo == "voz")
                     {
-                        for (auto i = this->servidorVisualizando.getCanais().begin(); i < this->servidorVisualizando.getCanais().end(); i++)
-                        {
-                            if (*i == nome)
-                            {
-                                std::cout << "\"Canal '" << nome << "' já existe!\"" << std::endl;
-                            }
-                            else
-                            {
-                                Canal *voz = new CanalVoz(nome);
-                                vozes.push_back(voz);
-                                this->servidorVisualizando.setCanais(vozes);
-                            }
-                        }
+                        Canal *voz = new CanalVoz(nome);
+                        this->servidorVisualizando.getCanais().push_back(voz);
+                        std::cout << "\"Canal de voz '" << voz->getNome() << "' criado" << std::endl;
                     }
+                }
+                else
+                {
+                    std::cout << "\"Você não pode criar um canal pois não é o dono do servidor\"" << std::endl;
                 }
             }
         }
         else if (linha[0] == "enter-channel")
         {
-            if (this->estado != 2)
-            {
-                std::cout << "\"Não é possível entrar em um canal nesse estado\"" << std::endl;
-            }
-            else
-            {
-            }
+            std::string nome = linha[1];
         }
         else if (linha[0] == "leave-channel")
         {
@@ -592,6 +574,8 @@ void Sistema::escolher()
             }
             else
             {
+                std::string nome = linha[1];
+                this->canalVisualizando.setNome("");
             }
         }
         else if (linha[0] == "send-message")
@@ -603,18 +587,18 @@ void Sistema::escolher()
             else
             {
                 std::string conteudo = "";
-                std::string dataHora = "";
 
-                auto agora = std::chrono::system_clock::now();
-                std::time_t momento = std::chrono::system_clock::to_time_t(agora);
+                std::chrono::system_clock::time_point agora = std::chrono::system_clock::now();
+                std::time_t horaAtual = std::chrono::system_clock::to_time_t(agora);
+                std::string horaString = std::ctime(&horaAtual);
 
                 for (auto it = (linha.begin() + 1); it < linha.end(); it++)
                 {
                     conteudo = conteudo + *it + " ";
                 }
 
-                Mensagem msg(dataHora, this->usuarioLogado, conteudo);
-                this->canalVisualizando.adicionarMensagem(msg);
+                Mensagem msg(conteudo, horaString, this->usuarioLogado.getId());
+                this->canalVisualizando.adicionarMensagens(msg);
             }
         }
         else if (linha[0] == "list-messages")
@@ -625,6 +609,14 @@ void Sistema::escolher()
             }
             else
             {
+                if (this->canalVisualizando.getNome() != "")
+                {
+                    this->canalVisualizando.listarMensagens();
+                }
+                else
+                {
+                    std::cout << "Você não está visualizando nenhum canal" << std::endl;
+                }
             }
         }
     }

@@ -21,7 +21,20 @@ std::vector <Mensagem> CanalTexto::getMensagens()
     return this->mensagens;
 }
 
-void setMensagens(std::vector <Mensagem> msg)
+void CanalTexto::setMensagens(std::vector <Mensagem> mensagens)
 {
-    
+    this->mensagens = mensagens;
+}
+
+void CanalTexto::adicionarMensagens(Mensagem mensagem)
+{
+    this->getMensagens().push_back(mensagem);
+}
+
+void CanalTexto::listarMensagens()
+{
+    for (auto i = this->mensagens.begin(); i < this->mensagens.end(); i++)
+    {
+        std::cout << i->getConteudo() << std::endl;
+    }
 }
