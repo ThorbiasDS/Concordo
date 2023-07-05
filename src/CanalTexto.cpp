@@ -28,13 +28,13 @@ void CanalTexto::setMensagens(std::vector <Mensagem> mensagens)
 
 void CanalTexto::adicionarMensagens(Mensagem mensagem)
 {
-    this->getMensagens().push_back(mensagem);
+    this->mensagens.push_back(mensagem);
 }
 
 void CanalTexto::listarMensagens()
 {
-    for (auto i = this->mensagens.begin(); i < this->mensagens.end(); i++)
+    for (int i = 0; i < this->mensagens.size(); i++)
     {
-        std::cout << i->getConteudo() << std::endl;
+        std::cout << this->mensagens.at(i).getConteudo() << std::endl;
     }
 }

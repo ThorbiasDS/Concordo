@@ -10,11 +10,11 @@ Este projeto foi proposto na disciplina Liguagem de Programação 1, do curso de
 Ele tem como objetivo a criação de um mini clone do Discord utilizando apenas comandos de texto. O usuário deve digitar os comandos no terminal e o sistema emitirá uma resposta de acordo com o que foi pedido.
 
 Esta aplicação não trabalha com recursos de rede nem de voz. A classe CanalVoz armazena apenas a última mensagem enviada.
-A entrega do projeto foi dividida em três partes, com a primeira contendo apenas a implementação das funções referentes aos Usuários e Servidores.
+A entrega do projeto foi dividida em três partes, com a primeira contendo apenas a implementação das funções referentes aos Usuários e Servidores e a segunda com as funções referentes aos canais.
 
 ### Comandos de Usuários e Servidores
 
-Abaixo estão listados os comandos referentes às funções de Usuários e Servidores
+Abaixo estão listados os comandos referentes às funções de Usuários, Servidores e Canais.
 
 - quit
 - create-user *email* *senha_sem_espacos* *nome com espaços*
@@ -28,6 +28,12 @@ Abaixo estão listados os comandos referentes às funções de Usuários e Servi
 - enter-server *nome*
 - leave-server
 - list-participants
+- list-channels
+- create-channel *nome* *tipo*
+- enter-channel *nome*
+- leave-channel
+- send-message *mensagem a ser enviada*
+- list-messages
 
 ### Como compilar e rodar o programa
 
@@ -48,6 +54,12 @@ Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, b
 
     Entrada: remove-server vingadores
     Saída: "Servidor 'vingadores' removido"
+
+    Entrada: enter-channel escarlate
+    Saída: "Entrou no canal 'escarlate'"
+
+    Entrada: leave-channel
+    Saída: "Saindo do canal 'escarlate'"
 
 ### Limitações e dificuldades
 

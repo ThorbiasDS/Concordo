@@ -471,6 +471,7 @@ void Sistema::escolher()
                     this->servidorVisualizando.setDescricao("");
                     this->servidorVisualizando.setNome("");
                     this->servidorVisualizando.setUsuarioDonoId(0);
+                    this->estado = 1;
                 }
             }
         }
@@ -510,22 +511,29 @@ void Sistema::escolher()
             else
             {
                 std::cout << "#canais de texto" << std::endl;
-                for (auto i = this->servidorVisualizando.getCanais().begin(); i < this->servidorVisualizando.getCanais().end(); i++)
+                auto canais = this->servidorVisualizando.getCanais();
+
+                for (int i = 0; i < this->servidorVisualizando.getCanais().size(); i++)
                 {
-                    const std::type_info &tipo = typeid(*i);
-                    if (tipo.name() == "texto")
+                    Canal *c = canais.at(i);
+                    const std::type_info &tipo = typeid(*c);
+
+                    if (tipo == typeid(CanalTexto))
                     {
-                        std::cout << *i << std::endl;
+                        std::cout << c->getNome() << std::endl;
                     }
                 }
 
                 std::cout << "#canais de voz" << std::endl;
-                for (auto i = this->servidorVisualizando.getCanais().begin(); i < this->servidorVisualizando.getCanais().end(); i++)
+
+                for (int i = 0; i < this->servidorVisualizando.getCanais().size(); i++)
                 {
-                    const std::type_info &tipo = typeid(*i);
-                    if (tipo.name() == "voz")
+                    Canal *c = canais.at(i);
+                    const std::type_info &tipo = typeid(*c);
+
+                    if (tipo == typeid(CanalVoz))
                     {
-                        std::cout << *i << std::endl;
+                        std::cout << c->getNome() << std::endl;
                     }
                 }
             }
@@ -546,13 +554,13 @@ void Sistema::escolher()
                     if (tipo == "texto")
                     {
                         Canal *texto = new CanalTexto(nome);
-                        this->servidorVisualizando.getCanais().push_back(texto);
+                        this->servidorVisualizando.adicionarCanal(texto);
                         std::cout << "\"Canal de texto '" << texto->getNome() << "' criado" << std::endl;
                     }
                     else if (tipo == "voz")
                     {
                         Canal *voz = new CanalVoz(nome);
-                        this->servidorVisualizando.getCanais().push_back(voz);
+                        this->servidorVisualizando.adicionarCanal(voz);
                         std::cout << "\"Canal de voz '" << voz->getNome() << "' criado" << std::endl;
                     }
                 }
@@ -564,28 +572,40 @@ void Sistema::escolher()
         }
         else if (linha[0] == "enter-channel")
         {
-            std::string nome = linha[1];
-        }
-        else if (linha[0] == "leave-channel")
-        {
-            if (this->estado != 3)
+            if (this->estado != 2)
             {
-                std::cout << "\"Não é possível sair de um canal nesse estado\"" << std::endl;
+                std::cout << "\"Não é possível entrar em um canal nesse estado\"" << std::endl;
             }
             else
             {
                 std::string nome = linha[1];
-                this->canalVisualizando.setNome("");
+                auto canais = this->servidorVisualizando.getCanais();
+                bool existe = false;
+
+                for (int i = 0; i < this->servidorVisualizando.getCanais().size(); i++)
+                {
+                    Canal *c = canais.at(i);
+                    if (nome == c->getNome())
+                    {
+                        this->canalVisualizando.setNome(c->getNome());
+                        std::cout << "\"Entrou no canal '" << nome << "'\"" << std::endl;
+                        existe = true;
+                    }
+                }
+
+                if (!existe)
+                {
+                    std::cout << "\"Canal '" << nome << "' não existe\"" << std::endl;
+                }
             }
+        }
+        else if (linha[0] == "leave-channel")
+        {
+            std::cout << "\"Saindo do canal '" << this->canalVisualizando.getNome() << "'\"" << std::endl;
+            this->canalVisualizando.setNome("");
         }
         else if (linha[0] == "send-message")
         {
-            if (this->estado != 3)
-            {
-                std::cout << "\"Não é possível enviar mensagens nesse estado\"" << std::endl;
-            }
-            else
-            {
                 std::string conteudo = "";
 
                 std::chrono::system_clock::time_point agora = std::chrono::system_clock::now();
@@ -599,16 +619,9 @@ void Sistema::escolher()
 
                 Mensagem msg(conteudo, horaString, this->usuarioLogado.getId());
                 this->canalVisualizando.adicionarMensagens(msg);
-            }
         }
         else if (linha[0] == "list-messages")
         {
-            if (this->estado != 2)
-            {
-                std::cout << "\"Não é possível listar mensagens nesse estado\"" << std::endl;
-            }
-            else
-            {
                 if (this->canalVisualizando.getNome() != "")
                 {
                     this->canalVisualizando.listarMensagens();
@@ -617,7 +630,6 @@ void Sistema::escolher()
                 {
                     std::cout << "Você não está visualizando nenhum canal" << std::endl;
                 }
-            }
         }
     }
 }

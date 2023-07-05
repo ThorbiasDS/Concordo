@@ -9,6 +9,15 @@ disconnect
 login visao@marvel.br Visao999
 login visao@marvel.ufrn.br Visao999
 create-server vingadores
+enter-server vingadores
+create-channel escarlate texto
+create-channel mercurio voz
+list-channels
+enter-channel escarlate
+send-message Oi tudo bem
+list-messages
+leave-channel
+leave-server
 create-server vingadores
 create-server guardioes
 create-server inumanos
@@ -25,6 +34,7 @@ set-server-desc vingadores "Mudando descricao"
 set-server-invite-code vingadores 111
 set-server-invite-code vingadores
 enter-server vingadores
+create-channel dinastia-m
 list-participants
 leave-server
 quit

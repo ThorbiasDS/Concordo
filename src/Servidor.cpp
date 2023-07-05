@@ -75,3 +75,8 @@ void Servidor::setParticipantesIDs(std::vector<int> participantesIDs)
 {
     this->participantesIDs = participantesIDs;
 }
+
+void Servidor::adicionarCanal(Canal *canal)
+{
+    this->canais.push_back(canal);
+}

@@ -62,6 +62,8 @@ public:
     */
     std::vector <int> getParticipantesIDs();
     void setParticipantesIDs(std::vector <int> participantesIDs);
+
+    void adicionarCanal(Canal *canal);
 };
 
 #endif
