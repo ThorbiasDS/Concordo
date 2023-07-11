@@ -15,7 +15,7 @@ private:
 public:
 
     /**
-     * @brief Construtor e Destrutor da classe
+     * @brief Construtores e Destrutor da classe
     */
     CanalVoz();
     CanalVoz(std::string nome);
@@ -28,18 +28,24 @@ public:
     void setUltimaMensagem(Mensagem ultimaMensagem);
 
     /**
-     * @brief Método herdado para adicionar mensagens
+     * @brief Sobrescrita do método herdado para adicionar mensagens
      * @param mensagem recebe uma mensagem para ser colocada no atributo ultimaMensagem
     */
     void adicionarMensagens(Mensagem mensagem) override;
 
     /**
-     * @brief Função para listar a útlima mensagem do canal
+     * @brief Sobrescrita do método para listar mensagens ao canal
     */
     void listarMensagens() override;
 
+    /**
+     * @brief Sobrescrita do método herdado da classe Canal para retornar o tipo do canal em formato texto
+    */
     std::string retornaTipo() override;
 
+    /**
+     * @brief Sobrescrita do método herdado da classe Canal para retornar a quantidade de mensagens em um canal
+    */
     int quantMensagens() override;
 };
 

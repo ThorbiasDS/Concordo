@@ -13,7 +13,7 @@ CanalTexto::CanalTexto(std::string nome)
 
 CanalTexto::~CanalTexto()
 {
-
+    
 }
 
 std::vector <Mensagem> CanalTexto::getMensagens()

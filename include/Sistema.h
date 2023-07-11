@@ -91,23 +91,17 @@ public:
     std::vector<std::string> split(const std::string &linha, char sep);
 
     /**
-     * @brief Método escolher. 
-     * Esse é o método principal do programa, ele é chamada uma única vez na classe main e serve para que o usuário digite qual comando deseja executar no sistema. 
-     * A partir do comando digitado o sistema fará as operações necessárias.
+     * @brief Método escolher. Esse é o método principal do programa, ele é chamada uma única vez na classe main e serve para que o usuário digite qual comando deseja executar no sistema. A partir do comando digitado o sistema fará as operações necessárias.
      */
     void escolher();
 
     /**
-     * @brief Método salvar.
-     * Ele serve para executar os métodos privados salvarUsuarios() e salvarServidores().
-     * Com isso as informações dos usuários e servidores serão salvos em disco.
+     * @brief Método salvar. Ele serve para executar os métodos privados salvarUsuarios() e salvarServidores(). Com isso as informações dos usuários e servidores serão salvos em disco.
     */
     void salvar();
 
     /**
-     * @brief Método carregar.
-     * Ele serve para carregar os dados salvos nos arquivos usuarios.txt e servidores.txt,
-     * para que antes de qualquer comando ser executado, seja possível ter a garantia que todas as informações estão atualizadas.
+     * @brief Método carregar. Ele serve para carregar os dados salvos nos arquivos usuarios.txt e servidores.txt, para que antes de qualquer comando ser executado, seja possível ter a garantia que todas as informações estão atualizadas.
     */
     void carregar();
 };

@@ -1,40 +1,49 @@
-create-user thor@marvel.ufrn.br Thor777 Tobias Daniel Siqueira
-create-user wanda@marvel.ufrn.br Wanda888 Wanda Maximoff
-create-user visao@marvel.ufrn.br Visao999 Visão
-login thor@marvel.ufrn.br Thor777
-login wanda@marvel.ufrn.br Wanda888
+create-user thor@marvel.br thor777 Thor Odinson
+create-user wanda@marvel.br wanda888 Wanda Maximoff
+create-user visao@marvel.br visao999 Visão sintosoide
+create-user thor@marvel.br top111 Thor da terra
+login thor@dc.br thor777
+login thor@marvel.br thor777
+login wanda@marvel.br wanda888
 disconnect
-login wanda@marvel.ufrn.br Wanda888
+create-server vingadores
 disconnect
-login visao@marvel.br Visao999
-login visao@marvel.ufrn.br Visao999
+login thor@marvel.br thor777
 create-server vingadores
-enter-server vingadores
-create-channel escarlate texto
-create-channel mercurio voz
-list-channels
-enter-channel escarlate
-send-message Oi tudo bem
-list-messages
-leave-channel
-leave-server
 create-server vingadores
-create-server guardioes
-create-server inumanos
 create-server x-men
-list-servers
-remove-server minha-casa
-remove-server x-men
-list-servers
-set-server-desc vingadores "Os heróis mais poderosos da terra"
-set-server-desc ligadajustica "DC Comics"
+create-server inumanos
+create-server guardioes
 disconnect
-login wanda@marvel.ufrn.br Wanda888
-set-server-desc vingadores "Mudando descricao"
-set-server-invite-code vingadores 111
+login wanda@marvel.br wanda888
+set-server-desc vingadores Os heróis mais poderosos da terra
+disconnect
+login thor@marvel.br thor777
+set-server-desc vingadores Os heróis mais poderosos da terra
+set-server-invite-code vingadores 555
 set-server-invite-code vingadores
+set-server-invite-code vingadores 444
+remove-server ligadajustica
+remove-server guardioes
+list-servers
+disconnect
+login wanda@marvel.br wanda888
 enter-server vingadores
-create-channel dinastia-m
-list-participants
+enter-server vingadores 444
 leave-server
+disconnect
+login thor@marvel.br thor777
+enter-server vingadores
+list-participants
+create-channel qg texto
+create-channel lutas texto
+create-channel galera-da-pizza voz
+create-channel galera-do-churrasco voz
+list-channels
+enter-channel galera-do-sorvete
+enter-channel galera-da-pizza
+leave-channel
+enter-channel galera-da-pizza
+send-message Vamos comprar uma pizza?
+list-messages
 quit

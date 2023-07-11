@@ -157,16 +157,16 @@ void Sistema::salvarServidores()
             arquivo << this->servidores.at(i).getDescricao() << std::endl;
             arquivo << this->servidores.at(i).getCodigoConvite() << std::endl;
             arquivo << this->servidores.at(i).getParticipantesIDs().size() << std::endl;
-            for (int j = 0; i < this->servidores.at(i).getParticipantesIDs().size(); j++)
+            for (int j = 0; j < this->servidores.at(i).getParticipantesIDs().size(); j++)
             {
                 arquivo << this->servidores.at(i).getParticipantesIDs().at(j) << std::endl;
             }
-            arquivo << this->servidores.at(i).getCanais().size();
+            arquivo << this->servidores.at(i).getCanais().size() << std::endl;
             for (int k = 0; k < this->servidores.at(i).getCanais().size(); k++)
             {
-                arquivo << this->servidores.at(i).getCanais().at(k)->getNome();
-                arquivo << this->servidores.at(i).getCanais().at(k)->retornaTipo();
-                arquivo << this->servidores.at(i).getCanais().at(k)->quantMensagens();
+                arquivo << this->servidores.at(i).getCanais().at(k)->getNome() << std::endl;
+                arquivo << this->servidores.at(i).getCanais().at(k)->retornaTipo() << std::endl;
+                arquivo << this->servidores.at(i).getCanais().at(k)->quantMensagens() << std::endl;
             }
         }
 
@@ -181,32 +181,17 @@ void Sistema::salvarServidores()
 void Sistema::salvar()
 {
     salvarUsuarios();
-    //salvarServidores();
+    salvarServidores();
 }
 
 void Sistema::carregarUsuarios()
 {
-    std::ifstream arquivo("usuarios.txt");
-
-    if(arquivo.is_open())
-    {
-        std::string linha;
-        getline(arquivo, linha);
-        while(std::getline(arquivo, linha))
-        {
-            
-        }
-        arquivo.close();
-    }
-    else
-    {
-        std::cout << "\"Não foi possível abrir o arquivo usuarios.txt\"" << std::endl;
-    }
+    
 }
 
 void Sistema::carregarServidores()
 {
-
+    
 }
 
 void Sistema::carregar()
@@ -301,7 +286,7 @@ void Sistema::escolher()
         {
             if (this->estado != 1)
             {
-                std::cout << "\"Não é possível desconectar do servidor nesse estado\"" << std::endl;
+                std::cout << "\"Não é possível fazer logoff nesse estado\"" << std::endl;
             }
             else
             {
@@ -343,7 +328,7 @@ void Sistema::escolher()
                 if (existe == false)
                 {
                     Servidor servidor(nome, this->usuarioLogado.getId());
-                    servidores.push_back(servidor);
+                    this->servidores.push_back(servidor);
                     std::cout << "\"Servidor criado\"" << std::endl;
                     salvar();
                 }
@@ -351,26 +336,26 @@ void Sistema::escolher()
         }
         else if (linha[0] == "set-server-desc")
         {
-            std::string nome = linha[1];
-            std::string descricao = "";
-            bool existe = false;
-
             if (this->estado != 1)
             {
                 std::cout << "\"Não é possível mudar a descrição de um servidor nesse estado\"" << std::endl;
             }
             else
             {
+                std::string nome = linha[1];
+                std::string descricao = "";
+                bool existe = false;
+
+                for (auto it = (linha.begin() + 2); it < linha.end(); it++)
+                {
+                    descricao = descricao + *it + " ";
+                }
+
                 for (auto it = servidores.begin(); it < servidores.end(); it++)
                 {
-                    if (nome == it->getNome())
+                    if (it->getNome() == nome)
                     {
                         existe = true;
-
-                        for (auto it = (linha.begin() + 2); it < linha.end(); it++)
-                        {
-                            descricao = descricao + *it + " ";
-                        }
 
                         if (it->getUsuarioDonoId() == this->usuarioLogado.getId())
                         {
@@ -384,32 +369,6 @@ void Sistema::escolher()
                         }
                     }
                 }
-
-                /*std::string nome = linha[1];
-                std::string descricao = "";
-                bool existe = false;
-
-                for (int i = 0; i < linha.size(); i++)
-                {
-                    descricao = descricao + linha.at(i) + " ";
-                }
-
-                Servidor s;
-                for (int i = 0; i < this->servidores.size(); i++)
-                {
-                    s = this->servidores.at(i);
-                    if (nome == s.getNome())
-                    {
-                        s.setDescricao(descricao);
-                        std::cout << "\"Descrição do servidor '" << nome << "' modificada!\"" << std::endl;
-                        existe = true;
-                    }
-                }
-
-                if (!existe)
-                {
-                    std::cout << "\"Canal '" << nome << "' não existe\"" << std::endl;
-                }*/
             }
         }
         else if (linha[0] == "set-server-invite-code")
@@ -428,7 +387,7 @@ void Sistema::escolher()
 
                 for (auto it = servidores.begin(); it < servidores.end(); it++)
                 {
-                    if (nome == it->getNome())
+                    if (it->getNome() == nome)
                     {
                         existe = true;
 
@@ -480,7 +439,7 @@ void Sistema::escolher()
 
                 for (auto it = servidores.begin(); it < servidores.end(); it++)
                 {
-                    if (nome == it->getNome())
+                    if (it->getNome() == nome)
                     {
                         existe = true;
                     }
@@ -494,7 +453,7 @@ void Sistema::escolher()
                 {
                     for (auto it = servidores.begin(); it < servidores.end(); it++)
                     {
-                        if (nome == it->getNome())
+                        if (it->getNome() == nome)
                         {
                             if (it->getUsuarioDonoId() == this->usuarioLogado.getId())
                             {
@@ -515,7 +474,7 @@ void Sistema::escolher()
         {
             if (this->estado != 1)
             {
-                std::cout << "\"Não é possível entrar um servidor nesse estado\"" << std::endl;
+                std::cout << "\"Não é possível entrar em um servidor nesse estado\"" << std::endl;
             }
             else
             {
@@ -527,37 +486,37 @@ void Sistema::escolher()
 
                 for (auto it = servidores.begin(); it < servidores.end(); it++)
                 {
-                    if (nome == it->getNome())
+                    if (it->getNome() == nome)
                     {
                         existe = true;
 
                         if (linha.size() == 2)
                         {
-                            this->participantesID.push_back(this->usuarioLogado.getId());
-                            it->setParticipantesIDs(this->participantesID);
+                            it->adicionarParticipanteID(this->usuarioLogado.getId());
                             this->servidorVisualizando = *it;
                             this->estado = 2;
                             std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
+                            salvar();
                         }
                         else
                         {
-                            if (codigo == it->getCodigoConvite())
+                            if (it->getCodigoConvite() == codigo)
                             {
-                                this->participantesID.push_back(this->usuarioLogado.getId());
-                                it->setParticipantesIDs(this->participantesID);
+                                it->adicionarParticipanteID(this->usuarioLogado.getId());
                                 this->servidorVisualizando = *it;
                                 this->estado = 2;
                                 std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
+                                salvar();
                             }
-                            else
+                            else if (it->getCodigoConvite() != codigo)
                             {
                                 if (this->usuarioLogado.getId() == it->getUsuarioDonoId())
                                 {
-                                    this->participantesID.push_back(this->usuarioLogado.getId());
-                                    it->setParticipantesIDs(this->participantesID);
+                                    it->adicionarParticipanteID(this->usuarioLogado.getId());
                                     this->servidorVisualizando = *it;
                                     this->estado = 2;
                                     std::cout << "\"Entrou no servidor com sucesso\"" << std::endl;
+                                    salvar();
                                 }
                                 else
                                 {
@@ -594,6 +553,7 @@ void Sistema::escolher()
                     this->servidorVisualizando.setNome("");
                     this->servidorVisualizando.setUsuarioDonoId(0);
                     this->estado = 1;
+                    salvar();
                 }
             }
         }
@@ -607,13 +567,13 @@ void Sistema::escolher()
             {
                 if (this->servidorVisualizando.getNome() != "")
                 {
-                    for (auto i = this->usuarios.begin(); i < this->usuarios.end(); i++)
+                    for (int i = 0; i < this->usuarios.size(); i++)
                     {
-                        for (auto j = this->servidorVisualizando.getParticipantesIDs().begin(); j < this->servidorVisualizando.getParticipantesIDs().end(); j++)
+                        for (int j = 0; j < this->servidorVisualizando.getParticipantesIDs().size(); j++)
                         {
-                            if (i->getId() == *j)
+                            if (this->usuarios.at(i).getId() == this->servidorVisualizando.getParticipantesIDs().at(j))
                             {
-                                std::cout << i->getNome() << std::endl;
+                                std::cout << this->usuarios.at(i).getNome() << std::endl;
                             }
                         }
                     }
@@ -678,12 +638,14 @@ void Sistema::escolher()
                         Canal *texto = new CanalTexto(nome);
                         this->servidorVisualizando.adicionarCanal(texto);
                         std::cout << "\"Canal de texto '" << texto->getNome() << "' criado" << std::endl;
+                        salvar();
                     }
                     else if (tipo == "voz")
                     {
                         Canal *voz = new CanalVoz(nome);
                         this->servidorVisualizando.adicionarCanal(voz);
                         std::cout << "\"Canal de voz '" << voz->getNome() << "' criado" << std::endl;
+                        salvar();
                     }
                 }
                 else
@@ -712,6 +674,7 @@ void Sistema::escolher()
                         this->canalVisualizando.setNome(c->getNome());
                         std::cout << "\"Entrou no canal '" << nome << "'\"" << std::endl;
                         existe = true;
+                        salvar();
                     }
                 }
 
@@ -725,6 +688,7 @@ void Sistema::escolher()
         {
             std::cout << "\"Saindo do canal '" << this->canalVisualizando.getNome() << "'\"" << std::endl;
             this->canalVisualizando.setNome("");
+            salvar();
         }
         else if (linha[0] == "send-message")
         {
@@ -741,6 +705,7 @@ void Sistema::escolher()
 
             Mensagem msg(conteudo, horaString, this->usuarioLogado.getId());
             this->canalVisualizando.adicionarMensagens(msg);
+            salvar();
         }
         else if (linha[0] == "list-messages")
         {

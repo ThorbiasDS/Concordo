@@ -63,6 +63,14 @@ public:
     std::vector <int> getParticipantesIDs();
     void setParticipantesIDs(std::vector <int> participantesIDs);
 
+    /**
+     * @brief Método para adicionar um novo ID de participante ao vector de IDs de participantes
+    */
+    void adicionarParticipanteID(int participanteID);
+
+    /**
+     * @brief Método para adicionar um novo ponteiro de canal ao vector de ponteiros de canais
+    */
     void adicionarCanal(Canal *canal);
 };
 

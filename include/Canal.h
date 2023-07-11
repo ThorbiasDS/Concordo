@@ -26,22 +26,22 @@ public:
     void setNome(std::string nome);
 
     /**
-     * @brief Função para adicionar mensagens ao canal (Texto ou Voz)
+     * @brief Método para adicionar mensagens ao canal (Texto ou Voz)
     */
     virtual void adicionarMensagens(Mensagem mensagem);
 
     /**
-     * @brief Função para listar mensagens ao canal (Texto ou Voz)
+     * @brief Método para listar mensagens ao canal (Texto ou Voz)
     */
     virtual void listarMensagens();
 
     /**
-     * @brief Função para retornar o tipo do canal no formato String
+     * @brief Método para retornar o tipo do canal no formato String
     */
     virtual std::string retornaTipo();
 
     /**
-     * @brief Função para retornar a quantidade de mensagens em um canal
+     * @brief Método para retornar a quantidade de mensagens em um canal
     */
     virtual int quantMensagens();
 };

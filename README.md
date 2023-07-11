@@ -50,11 +50,20 @@ Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, b
 
 ##### Comandos de Usuários e Servidores
 
-    Entrada: create-user thor@marvel.ufrn.br Thor777 Thor Odinson
+    Entrada: create-user thor@marvel.br thor777 Thor Odinson
     Saída: "Usuário criado"
+
+    Entrada: login thor@marvel.br thor888
+    Saída: "Senha ou usuário inválidos!"
+
+    Entrada: login thor@marvel.br thor777
+    Saída: "Logado como thor@marvel.br"
 
     Entrada: create-server vingadores
     Saída: "Servidor criado"
+
+    Entrada: set-server-desc vingadores Os heróis mais poderosos da Terra
+    Saída: "Descrição do servidor 'vingadores' modificada!
 
     Entrada: set-server-invite-code vingadores 111
     Saída: "Código de convite do servidor 'vingadores' modificado"
@@ -62,7 +71,16 @@ Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, b
     Entrada: remove-server vingadores
     Saída: "Servidor 'vingadores' removido"
 
+    Entrada: quit
+    Saída: "Saindo do Concordo"
+
 ##### Comandos de Canais
+
+    Entrada: create-channel escarlate texto
+    Saída: "Canal de texto 'escarlate' criado"
+
+    Entrada: create-channel mercurio voz
+    Saída: "Canal de voz 'mercurio' criado"
 
     Entrada: enter-channel escarlate
     Saída: "Entrou no canal 'escarlate'"
@@ -72,6 +90,6 @@ Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, b
 
 #### Limitações e dificuldades
 
-Esta versão do Concordo está com alguns vazamentos de memória, o arquivo de scripts não está muito completo, a função de listar mensagens de um canal não está funcionando e a persistência de dados no disco não foi terminada.
+Esta versão do Concordo está com alguns vazamentos de memória, o arquivo de scripts não está muito completo, alguns comandos não estão funcionando completamente/corretamente e a persistência de dados no disco não foi finalizada.
 
 © Tobias Daniel Siqueira

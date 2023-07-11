@@ -15,7 +15,7 @@ private:
 public:
 
     /**
-     * @brief Construtor e Destrutor da classe
+     * @brief Construtores e Destrutor da classe
     */
     Mensagem();
     Mensagem(std::string conteudo, std::string dataHora, int enviadaPor);
