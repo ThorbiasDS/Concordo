@@ -29,3 +29,18 @@ void Canal::listarMensagens()
 {
 
 }
+
+std::string Canal::retornaTipo()
+{
+
+}
+
+int Canal::quantMensagens()
+{
+
+}
+
+Mensagem Canal::retornaMensagens()
+{
+    
+}

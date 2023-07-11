@@ -1137,6 +1137,11 @@ CMakeFiles/program.dir/src/Sistema.cpp.o: src/Sistema.cpp \
   /usr/include/c++/11/limits \
   /usr/include/c++/11/ctime \
   /usr/include/c++/11/bits/parse_numbers.h \
+  /usr/include/c++/11/fstream \
+  /usr/include/c++/11/bits/codecvt.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+  /usr/include/c++/11/bits/fstream.tcc \
   include/Sistema.h \
   /usr/include/c++/11/vector \
   /usr/include/c++/11/bits/stl_uninitialized.h \
@@ -1543,6 +1548,11 @@ CMakeFiles/program.dir/src/main.cpp.o: src/main.cpp \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
+  /usr/include/c++/11/fstream \
+  /usr/include/c++/11/bits/codecvt.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+  /usr/include/c++/11/bits/fstream.tcc \
   include/Usuario.h \
   include/Servidor.h \
   /usr/include/c++/11/memory \
@@ -1577,6 +1587,10 @@ src/Usuario.cpp:
 
 include/Sistema.h:
 
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:
+
 /usr/include/c++/11/limits:
 
 /usr/include/c++/11/ratio:
@@ -1598,6 +1612,8 @@ include/Sistema.h:
 /usr/include/c++/11/bits/stl_raw_storage_iter.h:
 
 src/Servidor.cpp:
+
+/usr/include/c++/11/bits/fstream.tcc:
 
 src/Mensagem.cpp:
 
@@ -1861,6 +1877,8 @@ include/Canal.h:
 
 /usr/include/c++/11/iosfwd:
 
+/usr/include/c++/11/bits/codecvt.h:
+
 /usr/include/c++/11/ctime:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
@@ -2022,6 +2040,8 @@ include/Usuario.h:
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
 /usr/include/c++/11/bits/basic_string.h:
+
+/usr/include/c++/11/fstream:
 
 /usr/include/c++/11/bits/cxxabi_forced.h:
 

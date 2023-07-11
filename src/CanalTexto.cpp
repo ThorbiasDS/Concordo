@@ -38,3 +38,21 @@ void CanalTexto::listarMensagens()
         std::cout << this->mensagens.at(i).getConteudo() << std::endl;
     }
 }
+
+std::string CanalTexto::retornaTipo()
+{
+    return "texto";
+}
+
+int CanalTexto::quantMensagens()
+{
+    return this->mensagens.size();
+}
+
+Mensagem CanalTexto::retornaMensagens()
+{
+    for (int i = 0; i < this->mensagens.size(); i++)
+    {
+        return this->mensagens.at(i);
+    }
+}

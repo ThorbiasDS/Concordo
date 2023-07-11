@@ -1,40 +1,9 @@
-create-user thor@marvel.ufrn.br Thor777 Tobias Daniel Siqueira
-create-user wanda@marvel.ufrn.br Wanda888 Wanda Maximoff
-create-user visao@marvel.ufrn.br Visao999 Visão
-login thor@marvel.ufrn.br Thor777
-login wanda@marvel.ufrn.br Wanda888
-disconnect
-login wanda@marvel.ufrn.br Wanda888
-disconnect
-login visao@marvel.br Visao999
-login visao@marvel.ufrn.br Visao999
+create-user thor@marvel thor777 Thor Odinson
+login thor@marvel thor777
 create-server vingadores
-enter-server vingadores
-create-channel escarlate texto
-create-channel mercurio voz
-list-channels
-enter-channel escarlate
-send-message Oi tudo bem
-list-messages
-leave-channel
-leave-server
-create-server vingadores
-create-server guardioes
 create-server inumanos
 create-server x-men
-list-servers
-remove-server minha-casa
-remove-server x-men
-list-servers
-set-server-desc vingadores "Os heróis mais poderosos da terra"
-set-server-desc ligadajustica "DC Comics"
-disconnect
-login wanda@marvel.ufrn.br Wanda888
-set-server-desc vingadores "Mudando descricao"
-set-server-invite-code vingadores 111
-set-server-invite-code vingadores
+set-server-desc vingadores Olá, vamos lutar?
+set-server-invite-code vingadores 888
 enter-server vingadores
-create-channel dinastia-m
-list-participants
-leave-server
 quit

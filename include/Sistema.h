@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "Usuario.h"
 #include "Servidor.h"
 #include "Canal.h"
@@ -21,6 +22,9 @@ private:
     int estado;
     std::string comando;
     std::vector<int> participantesID;
+
+    void salvarUsuarios();
+    void salvarServidores();
 
 public:
     /**
@@ -90,6 +94,13 @@ public:
      * A partir do comando digitado o sistema fará as operações necessárias.
      */
     void escolher();
+
+    /**
+     * @brief Método salvar.
+     * Ele serve para executar os métodos privados salvarUsuarios() e salvarServidores().
+     * Com isso as informações dos usuários e servidores serão salvos em disco.
+    */
+    void salvar();
 };
 
 #endif

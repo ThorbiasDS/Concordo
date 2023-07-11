@@ -34,6 +34,12 @@ public:
      * @brief Função para listar mensagens ao canal (Texto ou Voz)
     */
     virtual void listarMensagens();
+
+    virtual std::string retornaTipo();
+
+    virtual int quantMensagens();
+
+    virtual Mensagem retornaMensagens();
 };
 
 #endif

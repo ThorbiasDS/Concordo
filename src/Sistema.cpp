@@ -3,6 +3,7 @@
 #include <chrono>
 #include <typeinfo>
 #include <ctime>
+#include <fstream>
 #include "Sistema.h"
 #include "Usuario.h"
 #include "CanalTexto.h"
@@ -119,6 +120,75 @@ std::vector<std::string> Sistema::split(const std::string &linha, char sep)
     return tokens;
 }
 
+void Sistema::salvarUsuarios()
+{
+    std::ofstream arquivo("usuarios.txt");
+
+    if (arquivo.is_open())
+    {
+        arquivo << this->usuarios.size() << std::endl;
+        for (int i = 0; i < this->usuarios.size(); i++)
+        {
+            arquivo << this->usuarios.at(i).getId() << std::endl;
+            arquivo << this->usuarios.at(i).getNome() << std::endl;
+            arquivo << this->usuarios.at(i).getEmail() << std::endl;
+            arquivo << this->usuarios.at(i).getSenha() << std::endl;
+        }
+
+        arquivo.close();
+    }
+    else
+    {
+        std::cout << "\"Não foi possível abrir o arquivo 'usuários.txt'.\"" << std::endl;
+    }
+}
+
+void Sistema::salvarServidores()
+{
+    std::ofstream arquivo("servidores.txt");
+
+    if (arquivo.is_open())
+    {
+        arquivo << this->servidores.size() << std::endl;
+        for (int i = 0; i < this->servidores.size(); i++)
+        {
+            arquivo << this->servidores.at(i).getUsuarioDonoId() << std::endl;
+            arquivo << this->servidores.at(i).getNome() << std::endl;
+            arquivo << this->servidores.at(i).getDescricao() << std::endl;
+            arquivo << this->servidores.at(i).getCodigoConvite() << std::endl;
+            arquivo << this->servidores.at(i).getParticipantesIDs().size() << std::endl;
+            for (int j = 0; i < this->servidores.at(i).getParticipantesIDs().size(); j++)
+            {
+                arquivo << this->servidores.at(i).getParticipantesIDs().at(j) << std::endl;
+            }
+            arquivo << this->servidores.at(i).getCanais().size();
+            for (int k = 0; k < this->servidores.at(i).getCanais().size(); k++)
+            {
+                arquivo << this->servidores.at(i).getCanais().at(k)->getNome();
+                arquivo << this->servidores.at(i).getCanais().at(k)->retornaTipo();
+                arquivo << this->servidores.at(i).getCanais().at(k)->quantMensagens();
+                for (int l = 0; i < this->servidores.at(i).getCanais().at(k)->retornaMensagens(); l++)
+                {
+                    /* code */
+                }
+                
+            }
+        }
+
+        arquivo.close();
+    }
+    else
+    {
+        std::cout << "\"Não foi possível abrir o arquivo 'servidores.txt'.\"" << std::endl;
+    }
+}
+
+void Sistema::salvar()
+{
+    salvarUsuarios();
+    salvarServidores();
+}
+
 void Sistema::escolher()
 {
     bool ativo = true;
@@ -168,6 +238,7 @@ void Sistema::escolher()
                     Usuario usuario(nome, email, senha, ++gerarID, ++gerarQuantidade);
                     usuarios.push_back(usuario);
                     std::cout << "\"Usuario criado\"" << std::endl;
+                    salvar();
                 }
             }
         }
@@ -249,21 +320,22 @@ void Sistema::escolher()
                     Servidor servidor(nome, this->usuarioLogado.getId());
                     servidores.push_back(servidor);
                     std::cout << "\"Servidor criado\"" << std::endl;
+                    salvar();
                 }
             }
         }
         else if (linha[0] == "set-server-desc")
         {
+            std::string nome = linha[1];
+            std::string descricao = "";
+            bool existe = false;
+
             if (this->estado != 1)
             {
                 std::cout << "\"Não é possível mudar a descrição de um servidor nesse estado\"" << std::endl;
             }
             else
             {
-                std::string nome = linha[1];
-                std::string descricao = "";
-                bool existe = false;
-
                 for (auto it = servidores.begin(); it < servidores.end(); it++)
                 {
                     if (nome == it->getNome())
@@ -287,10 +359,31 @@ void Sistema::escolher()
                     }
                 }
 
-                if (existe == false)
+                /*std::string nome = linha[1];
+                std::string descricao = "";
+                bool existe = false;
+
+                for (int i = 0; i < linha.size(); i++)
                 {
-                    std::cout << "\"Servidor '" << nome << "' não existe\"" << std::endl;
+                    descricao = descricao + linha.at(i) + " ";
                 }
+
+                Servidor s;
+                for (int i = 0; i < this->servidores.size(); i++)
+                {
+                    s = this->servidores.at(i);
+                    if (nome == s.getNome())
+                    {
+                        s.setDescricao(descricao);
+                        std::cout << "\"Descrição do servidor '" << nome << "' modificada!\"" << std::endl;
+                        existe = true;
+                    }
+                }
+
+                if (!existe)
+                {
+                    std::cout << "\"Canal '" << nome << "' não existe\"" << std::endl;
+                }*/
             }
         }
         else if (linha[0] == "set-server-invite-code")
@@ -606,30 +699,30 @@ void Sistema::escolher()
         }
         else if (linha[0] == "send-message")
         {
-                std::string conteudo = "";
+            std::string conteudo = "";
 
-                std::chrono::system_clock::time_point agora = std::chrono::system_clock::now();
-                std::time_t horaAtual = std::chrono::system_clock::to_time_t(agora);
-                std::string horaString = std::ctime(&horaAtual);
+            std::chrono::system_clock::time_point agora = std::chrono::system_clock::now();
+            std::time_t horaAtual = std::chrono::system_clock::to_time_t(agora);
+            std::string horaString = std::ctime(&horaAtual);
 
-                for (auto it = (linha.begin() + 1); it < linha.end(); it++)
-                {
-                    conteudo = conteudo + *it + " ";
-                }
+            for (auto it = (linha.begin() + 1); it < linha.end(); it++)
+            {
+                conteudo = conteudo + *it + " ";
+            }
 
-                Mensagem msg(conteudo, horaString, this->usuarioLogado.getId());
-                this->canalVisualizando.adicionarMensagens(msg);
+            Mensagem msg(conteudo, horaString, this->usuarioLogado.getId());
+            this->canalVisualizando.adicionarMensagens(msg);
         }
         else if (linha[0] == "list-messages")
         {
-                if (this->canalVisualizando.getNome() != "")
-                {
-                    this->canalVisualizando.listarMensagens();
-                }
-                else
-                {
-                    std::cout << "Você não está visualizando nenhum canal" << std::endl;
-                }
+            if (this->canalVisualizando.getNome() != "")
+            {
+                this->canalVisualizando.listarMensagens();
+            }
+            else
+            {
+                std::cout << "\"Você não está visualizando nenhum canal\"" << std::endl;
+            }
         }
     }
 }

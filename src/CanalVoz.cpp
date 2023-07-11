@@ -34,3 +34,18 @@ void CanalVoz::listarMensagens()
 {
     std::cout << this->ultimaMensagem.getConteudo() << std::endl;
 }
+
+std::string CanalVoz::retornaTipo()
+{
+    return "voz";
+}
+
+int CanalVoz::quantMensagens()
+{
+    return 1;
+}
+
+Mensagem CanalVoz::retornaMensagens()
+{
+    return this->ultimaMensagem;
+}

@@ -37,6 +37,12 @@ public:
      * @brief Função para listar a útlima mensagem do canal
     */
     void listarMensagens() override;
+
+    std::string retornaTipo() override;
+
+    int quantMensagens() override;
+
+    Mensagem retornaMensagens() override;
 };
 
 #endif

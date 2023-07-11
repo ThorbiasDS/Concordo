@@ -38,6 +38,12 @@ public:
      * @brief Função para listar mensagens ao canal
     */
     void listarMensagens() override;
+
+    std::string retornaTipo() override;
+
+    int quantMensagens() override;
+
+    Mensagem retornaMensagens() override;
 };
 
 #endif
