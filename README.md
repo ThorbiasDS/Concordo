@@ -1,8 +1,8 @@
 # Concordo
 ## Mini clone do Discord utilizando apenas comandos de texto feito em C++
 
-### Autor: Tobias Daniel Siqueira
-### Turma: DIM0120 - LINGUAGEM DE PROGRAMAÇÃO I - T02 (2023.1)
+#### Autor: Tobias Daniel Siqueira
+#### Turma: DIM0120 - LINGUAGEM DE PROGRAMAÇÃO I - T02 (2023.1)
 
 ### Descrição do projeto
 
