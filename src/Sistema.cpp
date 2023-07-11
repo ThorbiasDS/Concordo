@@ -167,11 +167,6 @@ void Sistema::salvarServidores()
                 arquivo << this->servidores.at(i).getCanais().at(k)->getNome();
                 arquivo << this->servidores.at(i).getCanais().at(k)->retornaTipo();
                 arquivo << this->servidores.at(i).getCanais().at(k)->quantMensagens();
-                for (int l = 0; i < this->servidores.at(i).getCanais().at(k)->retornaMensagens(); l++)
-                {
-                    /* code */
-                }
-                
             }
         }
 
@@ -186,7 +181,38 @@ void Sistema::salvarServidores()
 void Sistema::salvar()
 {
     salvarUsuarios();
-    salvarServidores();
+    //salvarServidores();
+}
+
+void Sistema::carregarUsuarios()
+{
+    std::ifstream arquivo("usuarios.txt");
+
+    if(arquivo.is_open())
+    {
+        std::string linha;
+        getline(arquivo, linha);
+        while(std::getline(arquivo, linha))
+        {
+            
+        }
+        arquivo.close();
+    }
+    else
+    {
+        std::cout << "\"Não foi possível abrir o arquivo usuarios.txt\"" << std::endl;
+    }
+}
+
+void Sistema::carregarServidores()
+{
+
+}
+
+void Sistema::carregar()
+{
+    carregarUsuarios();
+    carregarServidores();
 }
 
 void Sistema::escolher()
@@ -267,7 +293,7 @@ void Sistema::escolher()
 
                 if (existe == false)
                 {
-                    std::cout << "\"Senha ou usuários inválidos!\"" << std::endl;
+                    std::cout << "\"Senha ou usuário inválidos!\"" << std::endl;
                 }
             }
         }
@@ -290,7 +316,6 @@ void Sistema::escolher()
                     this->usuarioLogado.setEmail("");
                     this->usuarioLogado.setSenha("");
                     this->usuarioLogado.setId(0);
-                    this->usuarioLogado.setQuantUsuarios(0);
                     this->estado = 0;
                 }
             }
@@ -351,6 +376,7 @@ void Sistema::escolher()
                         {
                             it->setDescricao(descricao);
                             std::cout << "\"Descrição do servidor '" << nome << "' modificada!\"" << std::endl;
+                            salvar();
                         }
                         else
                         {
@@ -410,11 +436,13 @@ void Sistema::escolher()
                         {
                             it->setCodigoConvite(codigo);
                             std::cout << "\"Código de convite do servidor '" << nome << "' removido!\"" << std::endl;
+                            salvar();
                         }
                         else
                         {
                             it->setCodigoConvite(codigo);
                             std::cout << "\"Código de convite do servidor '" << nome << "' modificado!\"" << std::endl;
+                            salvar();
                         }
                     }
                 }
@@ -472,6 +500,7 @@ void Sistema::escolher()
                             {
                                 servidores.erase(it);
                                 std::cout << "\"Servidor '" << nome << "' removido\"" << std::endl;
+                                salvar();
                             }
                             else
                             {

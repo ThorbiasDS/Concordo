@@ -35,11 +35,15 @@ public:
     */
     virtual void listarMensagens();
 
+    /**
+     * @brief Função para retornar o tipo do canal no formato String
+    */
     virtual std::string retornaTipo();
 
+    /**
+     * @brief Função para retornar a quantidade de mensagens em um canal
+    */
     virtual int quantMensagens();
-
-    virtual Mensagem retornaMensagens();
 };
 
 #endif

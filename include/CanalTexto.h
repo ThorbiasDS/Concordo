@@ -42,8 +42,6 @@ public:
     std::string retornaTipo() override;
 
     int quantMensagens() override;
-
-    Mensagem retornaMensagens() override;
 };
 
 #endif

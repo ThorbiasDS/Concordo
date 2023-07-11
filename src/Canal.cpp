@@ -32,15 +32,10 @@ void Canal::listarMensagens()
 
 std::string Canal::retornaTipo()
 {
-
+    return "";
 }
 
 int Canal::quantMensagens()
 {
-
-}
-
-Mensagem Canal::retornaMensagens()
-{
-    
+    return 0;
 }

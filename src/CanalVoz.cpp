@@ -44,8 +44,3 @@ int CanalVoz::quantMensagens()
 {
     return 1;
 }
-
-Mensagem CanalVoz::retornaMensagens()
-{
-    return this->ultimaMensagem;
-}

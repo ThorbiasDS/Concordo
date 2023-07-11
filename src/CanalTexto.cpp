@@ -48,11 +48,3 @@ int CanalTexto::quantMensagens()
 {
     return this->mensagens.size();
 }
-
-Mensagem CanalTexto::retornaMensagens()
-{
-    for (int i = 0; i < this->mensagens.size(); i++)
-    {
-        return this->mensagens.at(i);
-    }
-}

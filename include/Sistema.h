@@ -25,6 +25,8 @@ private:
 
     void salvarUsuarios();
     void salvarServidores();
+    void carregarUsuarios();
+    void carregarServidores();
 
 public:
     /**
@@ -101,6 +103,13 @@ public:
      * Com isso as informações dos usuários e servidores serão salvos em disco.
     */
     void salvar();
+
+    /**
+     * @brief Método carregar.
+     * Ele serve para carregar os dados salvos nos arquivos usuarios.txt e servidores.txt,
+     * para que antes de qualquer comando ser executado, seja possível ter a garantia que todas as informações estão atualizadas.
+    */
+    void carregar();
 };
 
 #endif
