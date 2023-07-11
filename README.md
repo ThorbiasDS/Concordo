@@ -48,6 +48,8 @@ Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, b
 
 #### Exemplos de entrada e saída 
 
+##### Comandos de Usuários e Servidores
+
     Entrada: create-user thor@marvel.ufrn.br Thor777 Thor Odinson
     Saída: "Usuário criado"
 
@@ -60,6 +62,8 @@ Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, b
     Entrada: remove-server vingadores
     Saída: "Servidor 'vingadores' removido"
 
+##### Comandos de Canais
+
     Entrada: enter-channel escarlate
     Saída: "Entrou no canal 'escarlate'"
 
@@ -68,4 +72,6 @@ Feito isso, execute o arquivo *./program* para que o programa inicie. Por fim, b
 
 #### Limitações e dificuldades
 
-Esta versão do Concordo está com alguns vazamentos, o arquivo de scripts não está muito completo e a persistência de dados no disco não foi terminada.
+Esta versão do Concordo está com alguns vazamentos de memória, o arquivo de scripts não está muito completo, a função de listar mensagens de um canal não está funcionando e a persistência de dados no disco não foi terminada.
+
+© Tobias Daniel Siqueira
